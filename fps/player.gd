@@ -16,7 +16,7 @@ func _ready():
 	set_process_input(true)
 	
 func _input(event):
-	if event.type == InputEvent.MOUSE_MOTION:
+	if event is InputEventMouseMotion:
 		# compute the yaw with full 360 degree rotation
 		yaw = fmod(yaw - event.relative_x * view_sensitivity, 360)
 	
