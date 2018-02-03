@@ -5,5 +5,9 @@ These are all works in progress.
 Very basic version of breakout. There's still an issue with the speed of the ball.
 ## crates
 Simple crates you can fire a ball at. Click to the right of the crates. You have three balls.
+## fps
+First person shooter - not working yet
+## Menus
+Menu sample - heh, never done menus with Godot yet!
 ## plugins
 A version of GDNative simple C plugin (with corrected source code). Tried building it with VS 2017.
