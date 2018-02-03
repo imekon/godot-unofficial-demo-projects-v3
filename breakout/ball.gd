@@ -40,19 +40,19 @@ func compute_collision(delta, bodies):
 			
 		if body.get_name() == "bat":
 			var speed = get_linear_velocity().length()
-			var direction = get_pos() - body.get_node("anchor").get_global_pos()
+			var direction = position - body.get_node("anchor").global_position
 			var velocity = direction.normalized() * min(speed + SPEEDUP, MAXSPEED)
 			set_linear_velocity(velocity)
 		
-func _fixed_process(delta):
+func _physics_process(delta):
 	# Get a list of bodies we're bumping into
 	var bodies = get_colliding_bodies()
 	compute_collision(delta, bodies)
 	
 	# Are we off screen, if so, drop a life and reset
-	var pos = get_pos()
+	var pos = position
 	if pos.y > 650:
-		set_pos(Vector2(512, 400))
+		position = Vector2(512, 400)
 		compute_velocity()
 		get_node("/root/globals").decLives()
 

@@ -17,7 +17,7 @@ func getScore():
 	return score
 
 func destroy():
-	clear_shapes()
+	# clear_shapes()
 	tween.start()
 
 func onTweenComplete( object, key ):
