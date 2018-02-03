@@ -11,16 +11,15 @@ func _ready():
 	set_process_input(true)
 	
 func _input(ev):
-	if ev.type == InputEvent.MOUSE_BUTTON:
-		if ev.button_index == BUTTON_LEFT and ev.pressed:
-			if ball_count > 0:
-				createBall(ev.pos)
+	if (ev.button_mask & BUTTON_MASK_LEFT) and ev.is_pressed():
+		if ball_count > 0:
+			createBall(ev.position)
 		
 func createBall(pos):
 	var ball = ball_scene.instance()
-	var startPos = ball_spawn.get_global_pos()
-	ball.set_global_pos(startPos)
+	var startPos = ball_spawn.global_position
+	ball.global_position = startPos
 	var dir = (pos - startPos) / strength
-	ball.set_linear_velocity(dir)
+	ball.linear_velocity = dir
 	add_child(ball)
 	ball_count -= 1
