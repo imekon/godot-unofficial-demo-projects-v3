@@ -18,16 +18,16 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseMotion:
 		# compute the yaw with full 360 degree rotation
-		yaw = fmod(yaw - event.relative_x * view_sensitivity, 360)
+		yaw = fmod(yaw - event.relative.x * view_sensitivity, 360)
 	
 		# compute pitch with limited +85/-85 rotation, so we don't wrap around
-		pitch = max(min(pitch - event.relative_y * view_sensitivity, 85), -85)
+		pitch = max(min(pitch - event.relative.y * view_sensitivity, 85), -85)
 	
 		# pitch angle goes on camera
-		camera.set_rotation_deg(Vector3(pitch, 0, 0))
+		camera.rotation_degrees = Vector3(pitch, 0, 0)
 	
 		# yaw goes on player (RigidBody)
-		set_rotation_deg(Vector3(0, yaw, 0))
+		rotation_degrees = Vector3(0, yaw, 0)
 	
 	if Input.is_action_pressed("move_forwards"):
 		var x = sin(deg2rad(-yaw))
