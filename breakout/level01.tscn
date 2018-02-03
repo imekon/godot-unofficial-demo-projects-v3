@@ -23,6 +23,8 @@ level = 1
 
 [node name="bricks" type="Node2D" parent="." index="0"]
 
+editor/display_folded = true
+
 [node name="redBrick" parent="bricks" index="0" instance=ExtResource( 2 )]
 
 position = Vector2( 160, 320 )

@@ -23,7 +23,7 @@ func compute_velocity():
 	# Compute a direction
 	var n = randf() * PI / 2
 	var velocity = Vector2(sin(n), -cos(n))
-	set_linear_velocity(velocity * DEFSPEED)
+	linear_velocity = velocity * DEFSPEED
 	
 func compute_collision(delta, bodies):
 	# For each body we collide with, assuming group "brick"
@@ -38,11 +38,11 @@ func compute_collision(delta, bodies):
 			# Delete the colliding body, i.e. brick
 			body.destroy()
 			
-		if body.get_name() == "bat":
+		if body.name == "bat":
 			var speed = get_linear_velocity().length()
 			var direction = position - body.get_node("anchor").global_position
 			var velocity = direction.normalized() * min(speed + SPEEDUP, MAXSPEED)
-			set_linear_velocity(velocity)
+			linear_velocity = velocity
 		
 func _physics_process(delta):
 	# Get a list of bodies we're bumping into

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://brick.gd" type="Script" id=1]
 [ext_resource path="res://green.png" type="Texture" id=2]
@@ -11,9 +11,6 @@ extents = Vector2( 24, 8 )
 [node name="greenBrick" type="StaticBody2D"]
 
 input_pickable = false
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Transform2D( 1, 0, 0, 1, 9.53674e-07, 0 )
-shapes/0/trigger = false
 collision_layer = 1
 collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
@@ -23,22 +20,24 @@ bounce = 0.0
 script = ExtResource( 1 )
 score = 5
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="." index="0"]
 
 texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
 position = Vector2( 9.53674e-07, 0 )
 shape = SubResource( 1 )
-trigger = false
-_update_shape_index = 0
 
-[node name="tween" type="Tween" parent="."]
+[node name="Tween" type="Tween" parent="." index="2"]
 
+repeat = false
 playback_process_mode = 1
+playback_speed = 1.0
 playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
-[connection signal="tween_complete"  from="tween"  to="." method="onTweenComplete" binds=[  ]]
+[connection signal="tween_completed" from="Tween" to="." method="_onTweenCompleted"]
+
+
