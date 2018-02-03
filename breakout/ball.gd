@@ -11,8 +11,8 @@ extends RigidBody2D
 #	Linear:			0
 #	Angular:		0
 
-const SPEEDUP = 10
-const DEFSPEED = 200
+const SPEEDUP = 50
+const DEFSPEED = 250
 const MAXSPEED = 300
 
 func _ready():
@@ -39,10 +39,9 @@ func compute_collision(delta, bodies):
 			body.destroy()
 			
 		if body.name == "bat":
-			var speed = get_linear_velocity().length()
+			var speed = linear_velocity.length()
 			var direction = position - body.get_node("anchor").global_position
-			var velocity = direction.normalized() * min(speed + SPEEDUP, MAXSPEED)
-			linear_velocity = velocity
+			linear_velocity = direction.normalized() * min(speed + SPEEDUP, MAXSPEED)
 		
 func _physics_process(delta):
 	# Get a list of bodies we're bumping into
