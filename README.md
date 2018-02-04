@@ -6,7 +6,7 @@ Very basic version of breakout. There's still an issue with the speed of the bal
 ## crates
 Simple crates you can fire a ball at. Click to the right of the crates. You have three balls.
 ## fps
-First person shooter - not working yet
+First person shooter: shows FPS, textured floor and plain blue balls
 ## Menus
 Menu sample - heh, never done menus with Godot yet!
 ## plugins
