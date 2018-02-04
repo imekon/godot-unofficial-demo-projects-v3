@@ -11,7 +11,7 @@ func _ready():
 	set_process_input(true)
 	
 func _input(ev):
-	if (ev.button_mask & BUTTON_MASK_LEFT) and ev.is_pressed():
+	if Input.is_action_pressed("ui_fire"):
 		if ball_count > 0:
 			createBall(ev.position)
 		
