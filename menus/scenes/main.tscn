@@ -4,7 +4,7 @@
 
 [sub_resource type="DynamicFont" id=1]
 
-size = 20
+size = 16
 use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 1 )
@@ -52,10 +52,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 9.0
-margin_top = 9.0
-margin_right = 77.0
-margin_bottom = 40.0
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 89.0
+margin_bottom = 48.0
 rect_pivot_offset = Vector2( 0, 0 )
 mouse_filter = 0
 mouse_default_cursor_shape = 0
@@ -70,7 +70,7 @@ group = SubResource( 2 )
 text = "File"
 flat = true
 align = 1
-items = [  ]
+items = [ "New", null, false, false, false, 0, 0, null, "", false, "Open...", null, false, false, false, 1, 0, null, "", false, "Save...", null, false, false, false, 2, 0, null, "", false, "Quit", null, false, false, false, 3, 0, null, "", false ]
 _sections_unfolded = [ "custom_fonts" ]
 
 
