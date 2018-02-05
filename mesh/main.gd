@@ -1,6 +1,6 @@
 extends Spatial
 
-onready var meshInstance = get_node("Mesh")
+onready var meshInstance = $Mesh
 
 var angle = 0
 
