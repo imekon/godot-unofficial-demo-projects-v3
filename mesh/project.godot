@@ -15,3 +15,7 @@ run/main_scene="res://main.tscn"
 icon="res://icon.png"
 main_scene="res://main.tscn"
 name="mesh"
+
+[rendering]
+
+environment/default_clear_color=Color( 0, 0, 0, 1 )

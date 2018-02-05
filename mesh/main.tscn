@@ -79,7 +79,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.76669, 14.2219 )
 
 [node name="Camera" type="Camera" parent="observer" index="0"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.26752, -1.34878, -0.155507 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.26752, -1.34878, 5.08484 )
 keep_aspect = 1
 cull_mask = 1048575
 environment = null
@@ -95,7 +95,7 @@ far = 100.0
 
 [node name="DirectionalLight" type="DirectionalLight" parent="." index="2"]
 
-transform = Transform( 1, 0, 0, 0, 0.853335, 0.521363, 0, -0.521363, 0.853335, 0, 7.14211, 10.4021 )
+transform = Transform( 1, 0, 0, 0, 0.853335, 0.521363, 0, -0.521363, 0.853335, 0, 7.14211, 17.8989 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
 light_energy = 1.0

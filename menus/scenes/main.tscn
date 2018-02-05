@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://fonts/MODES___.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/main.gd" type="Script" id=1]
+[ext_resource path="res://fonts/MODES___.TTF" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
 
 size = 16
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 1 )
+font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="ButtonGroup" id=2]
@@ -28,6 +29,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
+script = ExtResource( 1 )
 _sections_unfolded = [ "Rect" ]
 
 [node name="Panel" type="Panel" parent="." index="0"]
