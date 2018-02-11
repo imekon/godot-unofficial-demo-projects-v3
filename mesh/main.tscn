@@ -155,7 +155,7 @@ far = 100.0
 
 [node name="DirectionalLight" type="DirectionalLight" parent="." index="2"]
 
-transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 7.14211, 20.8821 )
+transform = Transform( 0.866025, -0.433012, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 3.83702, 7.14211, 20.8821 )
 layers = 1
 light_color = Color( 1, 1, 1, 1 )
 light_energy = 1.0

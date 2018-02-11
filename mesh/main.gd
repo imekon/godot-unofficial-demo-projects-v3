@@ -5,7 +5,11 @@ onready var meshInstance = $Mesh
 var angle = 0
 
 func _ready():
-	createMesh(2, null)
+	var texture = load("res://junk.png")
+	var material = SpatialMaterial.new()
+	# material.albedo_color = Color(1.0, 0.0, 0.0)
+	material.albedo_texture = texture
+	createMesh(2, material)
 	
 func createMesh(size, material):
 	var surfaceTool = SurfaceTool.new()
@@ -13,6 +17,8 @@ func createMesh(size, material):
 	
 	# surfaceTool.add_normal(Vector3(    0,     0,  1))
 	
+	surfaceTool.set_material(material)
+
 	surfaceTool.add_vertex(Vector3(-size, -size,  0))
 	surfaceTool.add_vertex(Vector3( size,  size,  0))
 	surfaceTool.add_vertex(Vector3( size, -size,  0))
