@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Ka-Ching.wav-0d4252e39154c8cf2751a65ede5e1b9f.sample"
+
+[deps]
+
+source_file="res://Sounds/Ka-Ching.wav"
+source_md5="d095f6c0d6c35dc0285197a665a900dd"
+
+dest_files=[ "res://.import/Ka-Ching.wav-0d4252e39154c8cf2751a65ede5e1b9f.sample" ]
+dest_md5="a670334d29209908fee7c802be68fc75"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

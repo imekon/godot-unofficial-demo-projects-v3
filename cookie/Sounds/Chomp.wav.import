@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Chomp.wav-a7719a98872a803ef9b16971df97bee7.sample"
+
+[deps]
+
+source_file="res://Sounds/Chomp.wav"
+source_md5="b088c1687677ccc7ddc74ec3f2edc50e"
+
+dest_files=[ "res://.import/Chomp.wav-a7719a98872a803ef9b16971df97bee7.sample" ]
+dest_md5="51c7c2c619c99b1586112ec8bd7b1541"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Scrape.wav-481759d6a8be1a7502325b771dbb6678.sample"
+
+[deps]
+
+source_file="res://Sounds/Scrape.wav"
+source_md5="b469fcd07c7b21cca5ae6e58770aa4ac"
+
+dest_files=[ "res://.import/Scrape.wav-481759d6a8be1a7502325b771dbb6678.sample" ]
+dest_md5="47c756b1a588a8d2d4738514a6cc0600"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

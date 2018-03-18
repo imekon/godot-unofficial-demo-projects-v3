@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Drip.wav-d0cc1403da1355525419d797475a6e4e.sample"
+
+[deps]
+
+source_file="res://Sounds/Drip.wav"
+source_md5="52a4329e5a31407c050722fa9e2d30ff"
+
+dest_files=[ "res://.import/Drip.wav-d0cc1403da1355525419d797475a6e4e.sample" ]
+dest_md5="10205962518c15debd6537cbdc92fd97"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
