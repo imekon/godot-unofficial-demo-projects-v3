@@ -16,47 +16,45 @@ const NumColumns = 9
 
 var level
 
-class Cookie:
-	var column
+class Cell:
 	var row
-	var what
+	var column
+	var tile
+	var cookie
 	
-	func _init(r, c, w):
+	func _init(r, c, t):
 		row = r
 		column = c
-		what = w
-
+		tile = t
+		
 class Level:
-	var rows = []
+	var cells = []
 	
-	func _init():
+	func _init(scene, tile):
 		for row in range(NumRows):
 			var rowData = []
 			for column in range(NumColumns):
 				rowData.append(null)
-				
-			rows.append(rowData)
+			cells.append(rowData)
 			
-		shuffle()
-	
-	func shuffle():
 		for row in range(NumRows):
 			for column in range(NumColumns):
-				var what = randi() % 6
-				var cookie = createCookieAt(row, column, what)
+				var t = tile.instance()
+				var pos = getCellPosition(row, column)
+				t.position = pos
+				scene.add_child(t)
+				var cell = Cell.new(row, column, t)
+				setCellAtRowColumn(row, column, cell)
 	
-	func createCookieAt(row, column, what):
-		var cookie = Cookie.new(row, column, what)
-		rows[row][column] = cookie
-		return cookie
+	func getCellPosition(r, c):
+		return Vector2(c * 32 + 32, r * 36 + 200)
+			
+	func getCellAtRowColumn(r, c):
+		return cells[c][r]
+	
+	func setCellAtRowColumn(r, c, cell):
+		cells[c][r] = cell
 
 func _ready():
 	randomize()
-	level = Level.new()
-	
-func _process(delta):
-	update()
-	
-func _draw():
-	pass
-	
+	level = Level.new(self, tileSprite)
