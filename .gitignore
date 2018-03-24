@@ -6,4 +6,5 @@ screenshots/
 *.exp
 *.lib
 *.obj
-*.obj.import
+*.import
+
