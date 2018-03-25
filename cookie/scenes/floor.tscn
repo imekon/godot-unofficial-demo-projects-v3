@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Images/background.png" type="Texture" id=1]
+
+[node name="floor" type="StaticBody2D"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 144, -162, 144, 162, -144, 162, -144, -162, -160, -162, -160, 180, 160, 180, 160, -162 )
+
+[node name="Sprite" type="Sprite" parent="." index="1"]
+
+visible = false
+texture = ExtResource( 1 )
+_sections_unfolded = [ "Visibility" ]
+
+
