@@ -16,7 +16,7 @@ const NumSprites = 6
 const NumRows = 9
 const NumColumns = 9
 
-enum State { Idle, Empty, Dropping, Deleting }
+enum State { Idle, Empty, Filling, Dropping, Deleting }
 
 var level
 var sprites = []
@@ -57,12 +57,19 @@ class Level:
 	
 	func setCellAtRowColumn(r, c, cell):
 		cells[c][r] = cell
+		cell.row = r
+		cell.column = c
+		cell.index = -1
+		cell.state = State.Empty
 		
 	func fillLevel():
 		for row in range(NumRows):
 			for column in range(NumColumns):
-				var index = randi() % NumSprites
-				cells[column][row].index = index
+				var cell = getCellAtRowColumn(row, column)
+				if cell.state == State.Empty:
+					var index = randi() % NumSprites
+					cell.index = index
+					cell.state = State.Filling
 				
 	func scanForHorizontalMatch(cell):
 		var row = cell.row
@@ -108,11 +115,14 @@ func _ready():
 	add_child(f)
 	
 	for row in range(NumRows):
+		var rowOfSprites = []
+		sprites.append(rowOfSprites)
 		for column in range(NumColumns):
 			var pos = Level.getCellPosition(row, column)
 			var tile = tileSprite.instance()
 			tile.position = pos
 			add_child(tile)
+			rowOfSprites.append(null)
 	
 	# All the instances of sprites in play
 
@@ -126,3 +136,47 @@ func _ready():
 	# Create the level
 	level = Level.new()
 	level.fillLevel()
+	if updateCookiesForCreation():
+		level.scanForMatch()
+		updateCookiesForDeletion()
+
+func updateCookiesForCreation():
+	var created = false
+	for row in range(NumRows):
+		for column in range(NumColumns):
+			var cell = level.getCellAtRowColumn(row, column)
+			if cell.state == State.Filling:
+				var sprite = null
+				match cell.index:
+					0:
+						sprite = croissantSprite.instance()
+					1:
+						sprite = cupcakeSprite.instance()
+					2:
+						sprite = danishSprite.instance()
+					3:
+						sprite = donutSprite.instance()
+					4:
+						sprite = macaroonSprite.instance()
+					5:
+						sprite = sugarcookieSprite.instance()
+				
+				sprite.position = Level.getCellPosition(row, column)
+				sprites[row][column] = sprite
+				add_child(sprite)
+				created = true
+	
+	return created
+
+func updateCookiesForDeletion():
+	var deleted = false
+	for row in range(NumRows):
+		for column in range(NumColumns):
+			var cell = level.getCellAtRowColumn(row, column)
+			if cell.state == State.Deleting:
+				sprites[cell.row][cell.column].queue_free()
+				sprites[cell.row][cell.column] = null
+				cell.state = State.Empty
+				deleted = true
+	
+	return deleted
