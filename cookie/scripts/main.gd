@@ -37,10 +37,11 @@ func _ready():
 	# Create the level
 	theLevel = levelClass.Level.new()
 	theLevel.fillLevel()
-	theLevel.dump()
 	if updateCookiesForCreation():
 		theLevel.scanForMatch()
 		updateCookiesForDeletion()
+	theLevel.detectDroppingCells()
+	theLevel.dump()
 
 func updateCookiesForCreation():
 	var created = false
@@ -66,6 +67,7 @@ func updateCookiesForCreation():
 				sprite.position = levelClass.Level.getCellPosition(row, column)
 				sprites[row][column] = sprite
 				add_child(sprite)
+				cell.state = levelClass.State.Idle
 				created = true
 	
 	return created

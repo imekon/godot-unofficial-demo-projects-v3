@@ -54,7 +54,11 @@ class Level:
 					State.Deleting:
 						contents = contents + "!"
 				
-				contents = contents + str(cell.index)
+				if cell.index != -1:
+					contents = contents + str(cell.index)
+				else:
+					contents = contents + " "
+					
 				contents = contents + " "
 			print(contents)
 			
@@ -76,6 +80,14 @@ class Level:
 					var index = randi() % NumSprites
 					cell.index = index
 					cell.state = State.Filling
+
+	func detectDroppingCells():
+		for row in range(NumRows - 2, -1, -1):
+			for column in range(NumColumns):
+				var cell = getCellAtRowColumn(row, column)
+				var cellBelow = getCellAtRowColumn(row + 1, column)
+				if cell.state != State.Empty && (cellBelow.state == State.Empty || cellBelow.state == State.Dropping):
+					cell.state = State.Dropping
 				
 	func scanForHorizontalMatch(cell):
 		var row = cell.row
@@ -91,7 +103,17 @@ class Level:
 		return count
 		
 	func scanForVerticalMatch(cell):
-		return 0
+		var row = cell.row + 1
+		var column = cell.column
+		var index = cell.index
+		var count = 1
+		while(row < NumRows):
+			var c = cells[row][column]
+			if c.index != index:
+				return count
+			count = count + 1
+			row = row + 1
+		return count
 		
 	func markForDeleteHorizontal(r, c, count):
 		for index in range(count):
