@@ -61,13 +61,12 @@ func _ready():
 			var y = sprite.position.y
 			var dropping = DroppingCell.new(sprite, y)
 			spritesDropping.append(dropping)
-			tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_OUT)
+			tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
 			tween.start()
 
 func droppingCallback(offset):
-	print(offset)
 	for dropping in spritesDropping:
-		dropping.sprite.position.y = dropping.startingY + offset
+		dropping.sprite.position.y = dropping.startingY + offset * 36
 	
 func updateCookiesForCreation():
 	var created = false
