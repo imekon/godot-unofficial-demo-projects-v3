@@ -9,7 +9,6 @@ onready var danishSprite = load("res://scenes/danish.tscn")
 onready var donutSprite = load("res://scenes/donut.tscn")
 onready var macaroonSprite = load("res://scenes/macaroon.tscn")
 onready var sugarcookieSprite = load("res://scenes/sugarcookie.tscn")
-onready var floorSprite = load("res://scenes/floor.tscn")
 onready var tileSprite = load("res://scenes/tile.tscn")
 
 onready var levelClass = load("res://scripts/level.gd")
@@ -20,14 +19,6 @@ var sprites = []
 func _ready():
 	randomize()
 	
-	# Add the floor instance. The sprite is invisible,
-	# as we don't need to see it. Could delete it, but left
-	# it in so you could see how I created the polygon for
-	# the static body
-	var f = floorSprite.instance()
-	f.position = Vector2(4 * 32 + 32, 4 * 36 + 130)
-	add_child(f)
-
 	# Build the array of sprites that reflect the level contents	
 	for row in range(levelClass.NumRows):
 		var rowOfSprites = []
@@ -46,6 +37,7 @@ func _ready():
 	# Create the level
 	theLevel = levelClass.Level.new()
 	theLevel.fillLevel()
+	theLevel.dump()
 	if updateCookiesForCreation():
 		theLevel.scanForMatch()
 		updateCookiesForDeletion()

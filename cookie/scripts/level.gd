@@ -36,12 +36,33 @@ class Level:
 	
 	static func getCellPosition(r, c):
 		return Vector2(c * 32 + 32, r * 36 + 130)
+		
+	func dump():
+		for row in range(NumRows):
+			var contents = ""
+			for column in range(NumColumns):
+				var cell = cells[row][column]
+				match cell.state:
+					State.Idle:
+						contents = contents + "."
+					State.Empty:
+						contents = contents + "E"
+					State.Filling:
+						contents = contents + "F"
+					State.Dropping:
+						contents = contents + "D"
+					State.Deleting:
+						contents = contents + "!"
+				
+				contents = contents + str(cell.index)
+				contents = contents + " "
+			print(contents)
 			
 	func getCellAtRowColumn(r, c):
-		return cells[c][r]
+		return cells[r][c]
 	
 	func setCellAtRowColumn(r, c, cell):
-		cells[c][r] = cell
+		cells[r][c] = cell
 		cell.row = r
 		cell.column = c
 		cell.index = -1
