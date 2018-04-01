@@ -82,12 +82,15 @@ class Level:
 					cell.state = State.Filling
 
 	func detectDroppingCells():
+		var cellsAffected = []
 		for row in range(NumRows - 2, -1, -1):
 			for column in range(NumColumns):
 				var cell = getCellAtRowColumn(row, column)
 				var cellBelow = getCellAtRowColumn(row + 1, column)
 				if cell.state != State.Empty && (cellBelow.state == State.Empty || cellBelow.state == State.Dropping):
 					cell.state = State.Dropping
+					cellsAffected.append(cell)
+		return cellsAffected
 				
 	func scanForHorizontalMatch(cell):
 		var row = cell.row

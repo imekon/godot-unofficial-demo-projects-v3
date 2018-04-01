@@ -11,10 +11,21 @@ onready var macaroonSprite = load("res://scenes/macaroon.tscn")
 onready var sugarcookieSprite = load("res://scenes/sugarcookie.tscn")
 onready var tileSprite = load("res://scenes/tile.tscn")
 
+onready var tween = $Tween
+
 onready var levelClass = load("res://scripts/level.gd")
 
 var theLevel
 var sprites = []
+var spritesDropping = []
+
+class DroppingCell:
+	var sprite
+	var startingY
+	
+	func _init(s, y):
+		sprite = s
+		startingY = y
 
 func _ready():
 	randomize()
@@ -40,9 +51,24 @@ func _ready():
 	if updateCookiesForCreation():
 		theLevel.scanForMatch()
 		updateCookiesForDeletion()
-	theLevel.detectDroppingCells()
-	theLevel.dump()
+	var cellsDropping = theLevel.detectDroppingCells()
+	
+	# Build a list of cells to drop
+	if cellsDropping.size() > 0:
+		spritesDropping.clear()
+		for cell in cellsDropping:
+			var sprite = sprites[cell.row][cell.column]
+			var y = sprite.position.y
+			var dropping = DroppingCell.new(sprite, y)
+			spritesDropping.append(dropping)
+			tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_OUT)
+			tween.start()
 
+func droppingCallback(offset):
+	print(offset)
+	for dropping in spritesDropping:
+		dropping.sprite.position.y = dropping.startingY + offset
+	
 func updateCookiesForCreation():
 	var created = false
 	for row in range(levelClass.NumRows):
