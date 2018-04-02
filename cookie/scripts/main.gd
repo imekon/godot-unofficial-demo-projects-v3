@@ -64,10 +64,6 @@ func _ready():
 			tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
 			tween.start()
 
-func droppingCallback(offset):
-	for dropping in spritesDropping:
-		dropping.sprite.position.y = dropping.startingY + offset * 36
-	
 func updateCookiesForCreation():
 	var created = false
 	for row in range(levelClass.NumRows):
@@ -109,3 +105,10 @@ func updateCookiesForDeletion():
 				deleted = true
 	
 	return deleted
+
+func droppingCallback(offset):
+	for dropping in spritesDropping:
+		dropping.sprite.position.y = dropping.startingY + offset * 36
+	
+func _onTweenCompleted(object, key):
+	theLevel.dropCells()

@@ -91,6 +91,17 @@ class Level:
 					cell.state = State.Dropping
 					cellsAffected.append(cell)
 		return cellsAffected
+		
+	func dropCells():
+		for row in range(NumRows - 2, -1, -1):
+			for column in range(NumColumns):
+				var cell = getCellAtRowColumn(row, column)
+				var cellBelow = getCellAtRowColumn(row + 1, column)
+				if cell.state == State.Dropping:
+					cellBelow.index = cell.index
+					cellBelow.state = State.Idle
+					cell.index = -1
+					cell.state = State.Empty
 				
 	func scanForHorizontalMatch(cell):
 		var row = cell.row

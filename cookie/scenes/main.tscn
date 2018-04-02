@@ -23,4 +23,6 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
+[connection signal="tween_completed" from="Tween" to="." method="_onTweenCompleted"]
+
 
