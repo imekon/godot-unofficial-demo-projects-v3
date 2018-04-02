@@ -18,7 +18,6 @@ onready var levelClass = load("res://scripts/level.gd")
 var theLevel
 var sprites = []
 var spritesDropping = []
-var completed = false
 
 class DroppingCell:
 	var sprite
@@ -62,9 +61,8 @@ func _ready():
 			var y = sprite.position.y
 			var dropping = DroppingCell.new(sprite, y)
 			spritesDropping.append(dropping)
-			completed = false
-			tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
-			tween.start()
+		tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
+		tween.start()
 	else:	
 		theLevel.fillTopLine()
 		setupCookiesForCreation()
@@ -116,28 +114,29 @@ func droppingCallback(offset):
 		dropping.sprite.position.y = dropping.startingY + offset * 36
 	
 func _onTweenCompleted(object, key):
-	if !completed:
-		theLevel.dropCells()
-		theLevel.fillTopLine()
-		if setupCookiesForCreation():
-			theLevel.scanForMatch()
-			updateCookiesForDeletion()
-		var cellsDropping = theLevel.detectDroppingCells()
+	print(object, key)
 	
-		# Build a list of cells to drop
-		if cellsDropping.size() > 0:
-			spritesDropping.clear()
-			for cell in cellsDropping:
-				var sprite = sprites[cell.row][cell.column]
-				var y = sprite.position.y
-				var dropping = DroppingCell.new(sprite, y)
-				spritesDropping.append(dropping)
-				# this isn't going to work, can't set completed to false here!
-				completed = false
-				tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
-				tween.start()
-		else:	
-			theLevel.fillTopLine()
-			setupCookiesForCreation()
-			
-		completed = true
+	theLevel.dropCells()
+	theLevel.fillTopLine()
+		
+	#if setupCookiesForCreation():
+	#	theLevel.scanForMatch()
+	#	updateCookiesForDeletion()
+	#var cellsDropping = theLevel.detectDroppingCells()
+	
+	# Build a list of cells to drop
+	#if cellsDropping.size() > 0:
+	#	spritesDropping.clear()
+	#	for cell in cellsDropping:
+	#		var sprite = sprites[cell.row][cell.column]
+	#		var y = sprite.position.y
+	#		var dropping = DroppingCell.new(sprite, y)
+	#		spritesDropping.append(dropping)
+	#		# this isn't going to work, can't set completed to false here!
+	#		completed = false
+	#		tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
+	#		tween.start()
+	#else:	
+	#	theLevel.fillTopLine()
+	#	setupCookiesForCreation()
+		
