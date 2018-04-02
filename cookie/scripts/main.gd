@@ -18,6 +18,7 @@ onready var levelClass = load("res://scripts/level.gd")
 var theLevel
 var sprites = []
 var spritesDropping = []
+var completed = false
 
 class DroppingCell:
 	var sprite
@@ -48,10 +49,12 @@ func _ready():
 	# Create the level
 	theLevel = levelClass.Level.new()
 	theLevel.fillLevel()
-	if updateCookiesForCreation():
+	if setupCookiesForCreation():
 		theLevel.scanForMatch()
 		updateCookiesForDeletion()
 	var cellsDropping = theLevel.detectDroppingCells()
+	
+	print("cells dropped: " + str(cellsDropping.size()))
 	
 	# Build a list of cells to drop
 	if cellsDropping.size() > 0:
@@ -61,10 +64,15 @@ func _ready():
 			var y = sprite.position.y
 			var dropping = DroppingCell.new(sprite, y)
 			spritesDropping.append(dropping)
+			completed = false
 			tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
 			tween.start()
+	else:	
+		theLevel.fillTopLine()
+		setupCookiesForCreation()
+		theLevel.dump()
 
-func updateCookiesForCreation():
+func setupCookiesForCreation():
 	var created = false
 	for row in range(levelClass.NumRows):
 		for column in range(levelClass.NumColumns):
@@ -92,7 +100,7 @@ func updateCookiesForCreation():
 				created = true
 	
 	return created
-
+	
 func updateCookiesForDeletion():
 	var deleted = false
 	for row in range(levelClass.NumRows):
@@ -111,4 +119,8 @@ func droppingCallback(offset):
 		dropping.sprite.position.y = dropping.startingY + offset * 36
 	
 func _onTweenCompleted(object, key):
-	theLevel.dropCells()
+	if !completed:
+		theLevel.dropCells()
+		theLevel.fillTopLine()
+		setupCookiesForCreation()
+		completed = true

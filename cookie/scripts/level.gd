@@ -80,6 +80,14 @@ class Level:
 					var index = randi() % NumSprites
 					cell.index = index
 					cell.state = State.Filling
+					
+	func fillTopLine():
+		for column in range(NumColumns):
+			var cell = getCellAtRowColumn(0, column)
+			if cell.state == State.Empty:
+				var index = randi() % NumSprites
+				cell.index = index
+				cell.state = State.Filling
 
 	func detectDroppingCells():
 		var cellsAffected = []
@@ -143,13 +151,13 @@ class Level:
 							
 	func scanForMatch():
 		for row in range(NumRows):
-			for column in range(NumColumns - 3):
+			for column in range(NumColumns - 2):
 				var cell = cells[row][column]
 				var count = scanForHorizontalMatch(cell)
 				if count >= 3:
 					markForDeleteHorizontal(row, column, count)
 		
-		for row in range(NumRows - 3):
+		for row in range(NumRows - 2):
 			for column in range(NumColumns):
 				var cell = cells[row][column]
 				var count = scanForVerticalMatch(cell)
