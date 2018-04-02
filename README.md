@@ -3,6 +3,8 @@ Sample unofficial GODOT projects by Pete Goodwin (based on tutorials from docume
 These are all works in progress.
 ## breakout
 Very basic version of breakout. There's still an issue with the speed of the ball.
+## cookies
+Match 3 type game
 ## crates
 Simple crates you can fire a ball at. Click to the right of the crates. You have three balls.
 ## fps

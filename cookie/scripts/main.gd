@@ -54,8 +54,6 @@ func _ready():
 		updateCookiesForDeletion()
 	var cellsDropping = theLevel.detectDroppingCells()
 	
-	print("cells dropped: " + str(cellsDropping.size()))
-	
 	# Build a list of cells to drop
 	if cellsDropping.size() > 0:
 		spritesDropping.clear()
@@ -70,7 +68,6 @@ func _ready():
 	else:	
 		theLevel.fillTopLine()
 		setupCookiesForCreation()
-		theLevel.dump()
 
 func setupCookiesForCreation():
 	var created = false
@@ -122,5 +119,25 @@ func _onTweenCompleted(object, key):
 	if !completed:
 		theLevel.dropCells()
 		theLevel.fillTopLine()
-		setupCookiesForCreation()
+		if setupCookiesForCreation():
+			theLevel.scanForMatch()
+			updateCookiesForDeletion()
+		var cellsDropping = theLevel.detectDroppingCells()
+	
+		# Build a list of cells to drop
+		if cellsDropping.size() > 0:
+			spritesDropping.clear()
+			for cell in cellsDropping:
+				var sprite = sprites[cell.row][cell.column]
+				var y = sprite.position.y
+				var dropping = DroppingCell.new(sprite, y)
+				spritesDropping.append(dropping)
+				# this isn't going to work, can't set completed to false here!
+				completed = false
+				tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
+				tween.start()
+		else:	
+			theLevel.fillTopLine()
+			setupCookiesForCreation()
+			
 		completed = true
