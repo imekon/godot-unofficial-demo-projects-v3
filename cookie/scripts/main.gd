@@ -22,10 +22,14 @@ var spritesDropping = []
 class DroppingCell:
 	var sprite
 	var startingY
+	var row
+	var column
 	
-	func _init(s, y):
+	func _init(s, y, r, c):
 		sprite = s
 		startingY = y
+		row = r
+		column = c
 
 func _ready():
 	randomize()
@@ -59,7 +63,7 @@ func _ready():
 		for cell in cellsDropping:
 			var sprite = sprites[cell.row][cell.column]
 			var y = sprite.position.y
-			var dropping = DroppingCell.new(sprite, y)
+			var dropping = DroppingCell.new(sprite, y, cell.row, cell.column)
 			spritesDropping.append(dropping)
 		tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
 		tween.start()
@@ -102,41 +106,43 @@ func updateCookiesForDeletion():
 		for column in range(levelClass.NumColumns):
 			var cell = theLevel.getCellAtRowColumn(row, column)
 			if cell.state == levelClass.State.Deleting:
-				sprites[cell.row][cell.column].queue_free()
+				if sprites[cell.row][cell.column] != null:
+					sprites[cell.row][cell.column].queue_free()
 				sprites[cell.row][cell.column] = null
 				cell.state = levelClass.State.Empty
 				deleted = true
 	
 	return deleted
 
+func moveDroppingSprites():
+	for dropping in spritesDropping:
+		sprites[dropping.row][dropping.column] = null
+		sprites[dropping.row + 1][dropping.column] = dropping.sprite
+		
 func droppingCallback(offset):
 	for dropping in spritesDropping:
 		dropping.sprite.position.y = dropping.startingY + offset * 36
 	
-func _onTweenCompleted(object, key):
-	print(object, key)
-	
+func _onTweenCompleted(object, key):	
 	theLevel.dropCells()
+	moveDroppingSprites()
 	theLevel.fillTopLine()
 		
-	#if setupCookiesForCreation():
-	#	theLevel.scanForMatch()
-	#	updateCookiesForDeletion()
-	#var cellsDropping = theLevel.detectDroppingCells()
+	if setupCookiesForCreation():
+		theLevel.scanForMatch()
+		updateCookiesForDeletion()
+	var cellsDropping = theLevel.detectDroppingCells()
 	
 	# Build a list of cells to drop
-	#if cellsDropping.size() > 0:
-	#	spritesDropping.clear()
-	#	for cell in cellsDropping:
-	#		var sprite = sprites[cell.row][cell.column]
-	#		var y = sprite.position.y
-	#		var dropping = DroppingCell.new(sprite, y)
-	#		spritesDropping.append(dropping)
-	#		# this isn't going to work, can't set completed to false here!
-	#		completed = false
-	#		tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
-	#		tween.start()
-	#else:	
-	#	theLevel.fillTopLine()
-	#	setupCookiesForCreation()
-		
+	if cellsDropping.size() > 0:
+		spritesDropping.clear()
+		for cell in cellsDropping:
+			var sprite = sprites[cell.row][cell.column]
+			var y = sprite.position.y
+			var dropping = DroppingCell.new(sprite, y, cell.row, cell.column)
+			spritesDropping.append(dropping)
+		tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		tween.start()
+	else:
+		theLevel.fillTopLine()
+		setupCookiesForCreation()
