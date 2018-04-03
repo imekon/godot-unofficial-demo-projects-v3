@@ -11,7 +11,8 @@ onready var macaroonSprite = load("res://scenes/macaroon.tscn")
 onready var sugarcookieSprite = load("res://scenes/sugarcookie.tscn")
 onready var tileSprite = load("res://scenes/tile.tscn")
 
-onready var tween = $Tween
+onready var tweenDrop = $TweenDrop
+onready var scoreLabel = $ScoreLabel
 
 onready var levelClass = load("res://scripts/level.gd")
 
@@ -52,6 +53,7 @@ func _ready():
 	# Create the level
 	theLevel = levelClass.Level.new()
 	theLevel.fillLevel()
+	#
 	if setupCookiesForCreation():
 		theLevel.scanForMatch()
 		updateCookiesForDeletion()
@@ -65,11 +67,13 @@ func _ready():
 			var y = sprite.position.y
 			var dropping = DroppingCell.new(sprite, y, cell.row, cell.column)
 			spritesDropping.append(dropping)
-		tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
-		tween.start()
+		tweenDrop.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
+		tweenDrop.start()
 	else:	
 		theLevel.fillTopLine()
 		setupCookiesForCreation()
+		setScore()
+		print("done - main")
 
 func setupCookiesForCreation():
 	var created = false
@@ -141,8 +145,14 @@ func _onTweenCompleted(object, key):
 			var y = sprite.position.y
 			var dropping = DroppingCell.new(sprite, y, cell.row, cell.column)
 			spritesDropping.append(dropping)
-		tween.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
-		tween.start()
+		tweenDrop.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		tweenDrop.start()
 	else:
 		theLevel.fillTopLine()
 		setupCookiesForCreation()
+		setScore()
+		print("done - callback")
+		
+func setScore():
+	var score = theLevel.points
+	scoreLabel.text = "Score: " + str(score)

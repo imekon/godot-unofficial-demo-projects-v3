@@ -19,9 +19,11 @@ class Cell:
 		state = State.Idle
 		
 class Level:
+	var points
 	var cells = []
 	
 	func _init():
+		points = 0
 		for row in range(NumRows):
 			var rowData = []
 			for column in range(NumColumns):
@@ -156,6 +158,7 @@ class Level:
 				var count = scanForHorizontalMatch(cell)
 				if count >= 3:
 					markForDeleteHorizontal(row, column, count)
+					points += count - 2
 		
 		for row in range(NumRows - 2):
 			for column in range(NumColumns):
@@ -163,3 +166,4 @@ class Level:
 				var count = scanForVerticalMatch(cell)
 				if count >= 3:
 					markForDeleteVertical(row, column, count)
+					points += count - 2
