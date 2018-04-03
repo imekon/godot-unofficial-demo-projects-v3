@@ -67,7 +67,7 @@ func _ready():
 			var y = sprite.position.y
 			var dropping = DroppingCell.new(sprite, y, cell.row, cell.column)
 			spritesDropping.append(dropping)
-		tweenDrop.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
+		tweenDrop.interpolate_method(self, "droppingCallback", 0.0, levelClass.SpriteHeight, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
 		tweenDrop.start()
 	else:	
 		theLevel.fillTopLine()
@@ -125,7 +125,7 @@ func moveDroppingSprites():
 		
 func droppingCallback(offset):
 	for dropping in spritesDropping:
-		dropping.sprite.position.y = dropping.startingY + offset * 36
+		dropping.sprite.position.y = dropping.startingY + offset
 	
 func _onTweenCompleted(object, key):	
 	theLevel.dropCells()
@@ -145,7 +145,7 @@ func _onTweenCompleted(object, key):
 			var y = sprite.position.y
 			var dropping = DroppingCell.new(sprite, y, cell.row, cell.column)
 			spritesDropping.append(dropping)
-		tweenDrop.interpolate_method(self, "droppingCallback", 0.0, 1.0, 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		tweenDrop.interpolate_method(self, "droppingCallback", 0.0, levelClass.SpriteHeight, 1.0, Tween.TRANS_QUINT, Tween.EASE_OUT)
 		tweenDrop.start()
 	else:
 		theLevel.fillTopLine()

@@ -3,6 +3,8 @@ extends Node
 const NumSprites = 6
 const NumRows = 9
 const NumColumns = 9
+const SpriteWidth = 32
+const SpriteHeight = 36
 
 enum State { Idle, Empty, Filling, Dropping, Deleting }
 
@@ -37,7 +39,7 @@ class Level:
 				setCellAtRowColumn(row, column, cell)
 	
 	static func getCellPosition(r, c):
-		return Vector2(c * 32 + 32, r * 36 + 130)
+		return Vector2(c * SpriteWidth + SpriteWidth, r * SpriteHeight + 130)
 		
 	func dump():
 		for row in range(NumRows):
