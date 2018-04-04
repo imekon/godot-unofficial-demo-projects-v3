@@ -86,12 +86,16 @@ class Level:
 					cell.state = State.Filling
 					
 	func fillTopLine():
+		var filled = false
 		for column in range(NumColumns):
 			var cell = getCellAtRowColumn(0, column)
 			if cell.state == State.Empty:
 				var index = randi() % NumSprites
 				cell.index = index
 				cell.state = State.Filling
+				filled = true
+		
+		return filled
 
 	func detectDroppingCells():
 		var cellsAffected = []
