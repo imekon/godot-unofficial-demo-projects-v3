@@ -11,6 +11,7 @@ onready var macaroonSprite = load("res://scenes/macaroon.tscn")
 onready var sugarcookieSprite = load("res://scenes/sugarcookie.tscn")
 onready var tileSprite = load("res://scenes/tile.tscn")
 
+onready var cursor = $Cursor
 onready var tweenDrop = $TweenDrop
 onready var scoreLabel = $ScoreLabel
 
@@ -54,6 +55,14 @@ func _ready():
 	theLevel = levelClass.Level.new()
 	theLevel.fillLevel()
 	processCellsAndSprites()
+	
+func _input(event):
+	if Input.is_action_pressed("select_cookie"):
+		var pos = get_local_mouse_position()
+		var cell = levelClass.Level.getCellAtPosition(pos.x, pos.y)
+		pos = levelClass.Level.getCellPosition(cell[0], cell[1])
+		cursor.position = pos
+		cursor.show()
 	
 func processCellsAndSprites():
 	if setupCookiesForCreation():

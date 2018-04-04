@@ -41,6 +41,11 @@ class Level:
 	static func getCellPosition(r, c):
 		return Vector2(c * SpriteWidth + SpriteWidth, r * SpriteHeight + 130)
 		
+	static func getCellAtPosition(x, y):
+		var row = (y - 130) / SpriteHeight
+		var column = (x - SpriteWidth) / SpriteWidth
+		return [row, column]
+		
 	func dump():
 		for row in range(NumRows):
 			var contents = ""
