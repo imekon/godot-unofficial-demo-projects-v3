@@ -7,10 +7,10 @@ path="res://.import/cursor.png-c853f28c059201c8cee9190934108d6d.stex"
 [deps]
 
 source_file="res://Sprites.atlas/cursor.png"
-source_md5="eba3392d13c6835e936eacfadd73d75f"
+source_md5="ee688efa082d45cd408fe9cd869d28cd"
 
 dest_files=[ "res://.import/cursor.png-c853f28c059201c8cee9190934108d6d.stex" ]
-dest_md5="0bf9cd23acdae8122c5367069f568546"
+dest_md5="428aebffe137c6f6308e47db5221710c"
 
 [params]
 

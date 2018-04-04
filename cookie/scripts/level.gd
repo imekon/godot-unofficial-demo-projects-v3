@@ -3,8 +3,8 @@ extends Node
 const NumSprites = 6
 const NumRows = 9
 const NumColumns = 9
-const SpriteWidth = 32
-const SpriteHeight = 36
+const SpriteWidth = 32.0
+const SpriteHeight = 36.0
 
 enum State { Idle, Empty, Filling, Dropping, Deleting }
 
@@ -42,8 +42,19 @@ class Level:
 		return Vector2(c * SpriteWidth + SpriteWidth, r * SpriteHeight + 130)
 		
 	static func getCellAtPosition(x, y):
-		var row = (y - 130) / SpriteHeight
-		var column = (x - SpriteWidth) / SpriteWidth
+		var row = int((y - 130) / SpriteHeight + 0.5)
+		var column = int((x - SpriteWidth) / SpriteWidth + 0.5)
+
+		if row < 0:
+			row = 0
+		if row >= NumRows:
+			row = NumRows - 1
+			
+		if column < 0:
+			column = 0
+		if column >= NumColumns:
+			column = NumColumns - 1
+
 		return [row, column]
 		
 	func dump():
