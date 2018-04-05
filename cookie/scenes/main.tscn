@@ -33,7 +33,16 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
-[node name="ScoreLabel" type="Label" parent="." index="2"]
+[node name="TweenSwap" type="Tween" parent="." index="2"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="ScoreLabel" type="Label" parent="." index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -58,13 +67,15 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Material", "Visibility", "custom_colors", "custom_fonts", "custom_styles" ]
 
-[node name="Cursor" type="Sprite" parent="." index="3"]
+[node name="Cursor" type="Sprite" parent="." index="4"]
 
 visible = false
 z_index = 1
 texture = ExtResource( 4 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[connection signal="tween_completed" from="TweenDrop" to="." method="_onTweenCompleted"]
+[connection signal="tween_completed" from="TweenDrop" to="." method="_onTweenDropCompleted"]
+
+[connection signal="tween_completed" from="TweenSwap" to="." method="_onTweenSwapCompleted"]
 
 

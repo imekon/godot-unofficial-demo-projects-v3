@@ -13,6 +13,7 @@ onready var tileSprite = load("res://scenes/tile.tscn")
 
 onready var cursor = $Cursor
 onready var tweenDrop = $TweenDrop
+onready var tweenSwap = $TweenSwap
 onready var scoreLabel = $ScoreLabel
 
 onready var levelClass = load("res://scripts/level.gd")
@@ -137,12 +138,15 @@ func droppingCallback(offset):
 	for dropping in spritesDropping:
 		dropping.sprite.position.y = dropping.startingY + offset
 	
-func _onTweenCompleted(object, key):	
+func setScore():
+	var score = theLevel.points
+	scoreLabel.text = "Score: " + str(score)
+
+func _onTweenDropCompleted(object, key):
 	theLevel.dropCells()
 	moveDroppingSprites()
 	theLevel.fillTopLine()
 	processCellsAndSprites()
 		
-func setScore():
-	var score = theLevel.points
-	scoreLabel.text = "Score: " + str(score)
+func _onTweenSwapCompleted(object, key):
+	pass # replace with function body
