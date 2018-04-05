@@ -21,6 +21,24 @@ onready var levelClass = load("res://scripts/level.gd")
 var theLevel
 var sprites = []
 var spritesDropping = []
+var firstClick = null
+var nextClick = null
+var swapX = 0
+var swapY = 0
+
+class ClickLocation:
+	var row
+	var column
+	var sprite
+	var startX
+	var startY
+	
+	func _init(r, c, s):
+		row = r
+		column = c
+		sprite = s
+		startX = sprite.position.x
+		startY = sprite.position.y
 
 class DroppingCell:
 	var sprite
@@ -64,6 +82,34 @@ func _input(event):
 		pos = levelClass.Level.getCellPosition(cell[0], cell[1])
 		cursor.position = pos
 		cursor.show()
+		
+		var row = cell[0]
+		var column = cell[1]
+		var click = ClickLocation.new(row, column, sprites[row][column])
+		firstClick = nextClick
+		nextClick = click
+		processSwap()
+		
+func processSwap():
+	if firstClick == null:
+		return
+		
+	if nextClick == null:
+		return
+		
+	swapY = abs(firstClick.row - nextClick.row)
+	swapX = abs(firstClick.column - nextClick.column)
+	
+	if swapY > 1:
+		return
+		
+	if swapX > 1:
+		return
+		
+	if swapX != 0 && swapY != 0:
+		return
+		
+	swapCells()
 	
 func processCellsAndSprites():
 	if setupCookiesForCreation():
@@ -134,14 +180,27 @@ func moveDroppingSprites():
 		sprites[dropping.row][dropping.column] = null
 		sprites[dropping.row + 1][dropping.column] = dropping.sprite
 		
-func droppingCallback(offset):
-	for dropping in spritesDropping:
-		dropping.sprite.position.y = dropping.startingY + offset
-	
 func setScore():
 	var score = theLevel.points
 	scoreLabel.text = "Score: " + str(score)
+	
+func swapCells():
+	tweenSwap.interpolate_method(self, "swappingCallback", 0, 1, 0.7, Tween.TRANS_QUINT, Tween.EASE_OUT)
+	tweenSwap.start()
 
+func droppingCallback(offset):
+	for dropping in spritesDropping:
+		dropping.sprite.position.y = dropping.startingY + offset
+		
+func swappingCallback(offset):
+	print(str(offset) + ": " + str(swapX) + ", " + str(swapY))
+	
+	firstClick.sprite.position.x = firstClick.startX - offset * swapX * 32
+	firstClick.sprite.position.y = firstClick.startY - offset * swapY * 36
+	
+	nextClick.sprite.position.x = nextClick.startX + offset * swapX * 32
+	nextClick.sprite.position.y = nextClick.startY + offset * swapY * 36
+	
 func _onTweenDropCompleted(object, key):
 	theLevel.dropCells()
 	moveDroppingSprites()
@@ -149,4 +208,5 @@ func _onTweenDropCompleted(object, key):
 	processCellsAndSprites()
 		
 func _onTweenSwapCompleted(object, key):
-	pass # replace with function body
+	firstClick = null
+	nextClick = null
