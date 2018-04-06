@@ -97,13 +97,13 @@ func processSwap():
 	if nextClick == null:
 		return
 		
-	swapY = abs(firstClick.row - nextClick.row)
-	swapX = abs(firstClick.column - nextClick.column)
+	swapY = firstClick.row - nextClick.row
+	swapX = firstClick.column - nextClick.column
 	
-	if swapY > 1:
+	if abs(swapY) > 1:
 		return
 		
-	if swapX > 1:
+	if abs(swapX) > 1:
 		return
 		
 	if swapX != 0 && swapY != 0:
@@ -193,7 +193,12 @@ func droppingCallback(offset):
 		dropping.sprite.position.y = dropping.startingY + offset
 		
 func swappingCallback(offset):
-	print(str(offset) + ": " + str(swapX) + ", " + str(swapY))
+	# print(str(offset) + ": " + str(swapX) + ", " + str(swapY))
+	if firstClick == null:
+		return
+		
+	if nextClick == null:
+		return
 	
 	firstClick.sprite.position.x = firstClick.startX - offset * swapX * 32
 	firstClick.sprite.position.y = firstClick.startY - offset * swapY * 36
