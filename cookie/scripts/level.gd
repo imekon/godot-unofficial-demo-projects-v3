@@ -6,7 +6,7 @@ const NumColumns = 9
 const SpriteWidth = 32.0
 const SpriteHeight = 36.0
 
-enum State { Idle, Empty, Filling, Dropping, Deleting }
+enum State { Idle, Empty, Filling, Dropping, Swapping, Deleting }
 
 class Cell:
 	var row
@@ -189,3 +189,12 @@ class Level:
 				if count >= 3:
 					markForDeleteVertical(row, column, count)
 					points += count - 2
+
+	func swapCells(row1, column1, row2, column2):
+		var cell1 = cells[row1][column1]
+		var cell2 = cells[row2][column2]
+		var temp = cell1.index
+		cell1.index = cell2.index
+		cell2.index = temp
+		cell1.state = State.Swapping
+		cell2.state = State.Swapping

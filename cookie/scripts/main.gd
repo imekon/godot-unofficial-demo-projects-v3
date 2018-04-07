@@ -206,6 +206,11 @@ func swappingCallback(offset):
 	nextClick.sprite.position.x = nextClick.startX + offset * swapX * 32
 	nextClick.sprite.position.y = nextClick.startY + offset * swapY * 36
 	
+func swapSprites(row1, column1, row2, column2):
+	var temp = sprites[row1][column1]
+	sprites[row1][column1] = sprites[row2][column2]
+	sprites[row2][column2] = temp
+	
 func _onTweenDropCompleted(object, key):
 	theLevel.dropCells()
 	moveDroppingSprites()
@@ -213,5 +218,13 @@ func _onTweenDropCompleted(object, key):
 	processCellsAndSprites()
 		
 func _onTweenSwapCompleted(object, key):
+	if firstClick == null:
+		return
+		
+	if nextClick == null:
+		return
+		
+	theLevel.swapCells(firstClick.row, firstClick.column, nextClick.row, nextClick.column)
+	swapSprites(firstClick.row, firstClick.column, nextClick.row, nextClick.column)
 	firstClick = null
 	nextClick = null
