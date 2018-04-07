@@ -25,6 +25,7 @@ var firstClick = null
 var nextClick = null
 var swapX = 0
 var swapY = 0
+var lock = false
 
 class ClickLocation:
 	var row
@@ -76,6 +77,9 @@ func _ready():
 	processCellsAndSprites()
 	
 func _input(event):
+	if lock:
+		return
+		
 	if Input.is_action_pressed("select_cookie"):
 		var pos = get_local_mouse_position()
 		var cell = levelClass.Level.getCellAtPosition(pos.x, pos.y)
@@ -185,6 +189,7 @@ func setScore():
 	scoreLabel.text = "Score: " + str(score)
 	
 func swapCells():
+	lock = true
 	tweenSwap.interpolate_method(self, "swappingCallback", 0, 1, 0.7, Tween.TRANS_QUINT, Tween.EASE_OUT)
 	tweenSwap.start()
 
@@ -193,7 +198,6 @@ func droppingCallback(offset):
 		dropping.sprite.position.y = dropping.startingY + offset
 		
 func swappingCallback(offset):
-	# print(str(offset) + ": " + str(swapX) + ", " + str(swapY))
 	if firstClick == null:
 		return
 		
@@ -228,3 +232,5 @@ func _onTweenSwapCompleted(object, key):
 	swapSprites(firstClick.row, firstClick.column, nextClick.row, nextClick.column)
 	firstClick = null
 	nextClick = null
+	cursor.hide()
+	lock = false
