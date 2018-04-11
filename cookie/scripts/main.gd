@@ -11,7 +11,6 @@ onready var macaroonSprite = load("res://scenes/macaroon.tscn")
 onready var sugarcookieSprite = load("res://scenes/sugarcookie.tscn")
 onready var tileSprite = load("res://scenes/tile.tscn")
 
-onready var cursor = $Cursor
 onready var tweenDrop = $TweenDrop
 onready var tweenSwap = $TweenSwap
 onready var scoreLabel = $ScoreLabel
@@ -80,20 +79,18 @@ func _input(event):
 	if lock:
 		return
 		
-	if Input.is_action_pressed("select_cookie"):
+	if event is InputEventMouseButton && event.button_index == BUTTON_LEFT:
 		var pos = get_local_mouse_position()
 		var cell = levelClass.Level.getCellAtPosition(pos.x, pos.y)
-		pos = levelClass.Level.getCellPosition(cell[0], cell[1])
-		cursor.position = pos
-		cursor.show()
-		
 		var row = cell[0]
 		var column = cell[1]
-		var click = ClickLocation.new(row, column, sprites[row][column])
-		firstClick = nextClick
-		nextClick = click
-		processSwap()
-		
+		var sprite = sprites[row][column]
+		if event.pressed:
+			firstClick = ClickLocation.new(row, column, sprite)
+		else:
+			nextClick = ClickLocation.new(row, column, sprite)
+			processSwap()
+	
 func processSwap():
 	if firstClick == null:
 		return
@@ -232,5 +229,4 @@ func _onTweenSwapCompleted(object, key):
 	swapSprites(firstClick.row, firstClick.column, nextClick.row, nextClick.column)
 	firstClick = null
 	nextClick = null
-	cursor.hide()
 	lock = false

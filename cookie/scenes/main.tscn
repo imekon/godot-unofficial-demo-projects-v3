@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://Images/Background@2x.png" type="Texture" id=2]
 [ext_resource path="res://fonts/MODES___.TTF" type="DynamicFontData" id=3]
-[ext_resource path="res://Sprites.atlas/cursor.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -66,13 +65,6 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Material", "Visibility", "custom_colors", "custom_fonts", "custom_styles" ]
-
-[node name="Cursor" type="Sprite" parent="." index="4"]
-
-visible = false
-z_index = 1
-texture = ExtResource( 4 )
-_sections_unfolded = [ "Visibility", "Z Index" ]
 
 [connection signal="tween_completed" from="TweenDrop" to="." method="_onTweenDropCompleted"]
 
