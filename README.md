@@ -13,3 +13,5 @@ First person shooter: shows FPS, textured floor and plain blue balls
 Menu sample - heh, never done menus with Godot yet!
 ## plugins
 A version of GDNative simple C plugin (with corrected source code). Tried building it with VS 2017.
+## TD2
+Tower Defense game using Navigation2D and NavigationPolygon. Needs work as enemy can move between cracks in walls! Looking for a way to merge (union) polygons (rectangles). Once I have that, the enemies will move around walls.
