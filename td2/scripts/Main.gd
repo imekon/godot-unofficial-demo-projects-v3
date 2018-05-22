@@ -7,6 +7,8 @@ onready var wall = load("res://scenes/wall.tscn")
 onready var home = load("res://scenes/home.tscn")
 onready var enemy = load("res://scenes/enemy.tscn")
 
+onready var Clipper = load("res://bin/clipper.gdns")
+
 onready var path2d = $Path2D
 onready var pathFollow = $Path2D/PathFollow2D
 onready var tween = $Tween
@@ -78,6 +80,8 @@ func _ready():
 				
 			sprite.position = pos
 			add_child(sprite)
+			
+	var clipper = Clipper.new()
 
 	poly.make_polygons_from_outlines()
 	nav2d.navpoly_add(poly, Transform2D())
@@ -91,7 +95,7 @@ func _ready():
 	# alien.position = enemyPos
 	pathFollow.add_child(alien)
 	
-	tween.interpolate_method(self, "move_alien_along_path", 0.0, 1.0, 60, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	tween.interpolate_method(self, "move_alien_along_path", 0.0, 1.0, 30, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	tween.start()
 	
 func move_alien_along_path(value):
