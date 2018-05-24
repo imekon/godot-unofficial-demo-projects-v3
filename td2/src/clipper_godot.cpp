@@ -12,10 +12,13 @@ const godot_gdnative_ext_nativescript_api_struct *nativescript_api = NULL;
 
 void *clipper_constructor(godot_object *p_instance, void *p_method_data);
 void clipper_destructor(godot_object *p_instance, void *p_method_data, void *p_user_data);
+
 godot_variant clipper_add_path(godot_object *p_instance, void *p_method_data,
     void *p_user_data, int p_num_args, godot_variant **p_args);
+godot_variant clipper_execute(godot_object *p_instance, void *p_method_data,
+    void *p_user_data, int p_num_args, godot_variant **p_args);
     
-void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *p_options) 
+extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *p_options) 
 {
     api = p_options->api_struct;
 
@@ -34,7 +37,7 @@ void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *p_options)
     }
 }
     
-void GDN_EXPORT godot_nativescript_init(void *p_handle) 
+extern "C" void GDN_EXPORT godot_nativescript_init(void *p_handle) 
 {
     godot_instance_create_func create = { NULL, NULL, NULL };
     create.create_func = &clipper_constructor;
@@ -47,11 +50,22 @@ void GDN_EXPORT godot_nativescript_init(void *p_handle)
 
     godot_instance_method add_path = { NULL, NULL, NULL };
     add_path.method = &clipper_add_path;
+    
+    godot_instance_method execute = { NULL, NULL, NULL };
+    execute.method = &clipper_execute;
 
     godot_method_attributes attributes = { GODOT_METHOD_RPC_MODE_DISABLED };
 
     nativescript_api->godot_nativescript_register_method(p_handle, "CLIPPER", "add_path",
         attributes, add_path);
+        
+    nativescript_api->godot_nativescript_register_method(p_handle, "CLIPPER", "execute",
+        attributes, execute);
+}
+
+extern "C" void godot_gdnative_terminate(void *p_options)
+{
+    
 }
 
 typedef struct user_data_struct 
@@ -63,7 +77,6 @@ void *clipper_constructor(godot_object *p_instance, void *p_method_data)
 {
     user_data_struct *user_data = (user_data_struct *)api->godot_alloc(sizeof(user_data_struct));
     user_data->clipper = new Clipper();
-
     return user_data;
 }
 
@@ -74,6 +87,14 @@ void clipper_destructor(godot_object *p_instance, void *p_method_data, void *p_u
 }
 
 godot_variant clipper_add_path(godot_object *p_instance, void *p_method_data,
+        void *p_user_data, int p_num_args, godot_variant **p_args) 
+{
+    godot_variant ret;
+
+    return ret;
+}
+
+godot_variant clipper_execute(godot_object *p_instance, void *p_method_data,
         void *p_user_data, int p_num_args, godot_variant **p_args) 
 {
     godot_variant ret;
