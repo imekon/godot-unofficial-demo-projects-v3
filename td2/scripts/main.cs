@@ -8,6 +8,7 @@ public class main : Node2D
 	private Navigation2D nav2d;
 	private Path2D path2d;
 	private PathFollow2D pathFollow;
+	private Tween tween;
 	
 	private PackedScene ground;
 	private PackedScene wall;
@@ -15,8 +16,13 @@ public class main : Node2D
 	private PackedScene enemy;
 	private PackedScene alien1;
 	
+	private Vector2 homePos;
+	private Vector2 enemyPos;
+	
 	private const int SPRITE_WIDTH = 64;
 	private const int SPRITE_HEIGHT = 64;
+	private const int SPRITE_WIDTH2 = 32;
+	private const int SPRITE_HEIGHT2 = 32;
 	private const int LEFT_MARGIN = 40;
 	private const int TOP_MARGIN = 40;
 	
@@ -42,6 +48,14 @@ public class main : Node2D
 			new List<int> { 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 			new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
 		};
+		
+		nav2d = (Navigation2D)GetNode("Navigation2D");
+		path2d = (Path2D)GetNode("Path2D");
+		pathFollow = (PathFollow2D)GetNode("Path2D/PathFollow2D");
+		tween = (Tween)GetNode("Tween");
+		
+		if (tween == null)
+			GD.Print("tween is null!");
 		
 		ground = (PackedScene)ResourceLoader.Load("res://scenes/ground.tscn");
 		wall = (PackedScene)ResourceLoader.Load("res://scenes/wall.tscn");
@@ -73,20 +87,22 @@ public class main : Node2D
 						instance = (Sprite)wall.Instance();
 						var path = new List<IntPoint>()
 						{
-							new IntPoint(pos.x - 32, pos.y - 32),
-							new IntPoint(pos.x + 32, pos.y - 32),
-							new IntPoint(pos.x + 32, pos.y + 32),
-							new IntPoint(pos.x - 32, pos.y + 32)
+							new IntPoint(pos.x - SPRITE_WIDTH2, pos.y - SPRITE_HEIGHT2),
+							new IntPoint(pos.x + SPRITE_WIDTH2, pos.y - SPRITE_HEIGHT2),
+							new IntPoint(pos.x + SPRITE_WIDTH2, pos.y + SPRITE_HEIGHT2),
+							new IntPoint(pos.x - SPRITE_WIDTH2, pos.y + SPRITE_HEIGHT2)
 						};
 						clipper.AddPath(path, PolyType.ptSubject, true);
 						break;
 						
 					case 2:
 						instance = (Sprite)enemy.Instance();
+						enemyPos = pos;
 						break;
 						
 					case 3:
 						instance = (Sprite)home.Instance();
+						homePos = pos;
 						break;
 				}
 				
@@ -96,14 +112,67 @@ public class main : Node2D
 		}
         
 		clipper.Execute(ClipType.ctUnion, solution);
+		SetupNavigationPolygon(solution, rows, columns);
+		
+		var follow = nav2d.GetSimplePath(enemyPos, homePos);
+		
+		foreach(var point in follow)
+		{
+			GD.Print($"point {point.x}, {point.y}");
+			path2d.Curve.AddPoint(point);
+		}
+			
+		pathFollow.AddChild(alien1.Instance());
+		
+		tween.InterpolateMethod(this, "MoveAlienAlongPath", 0.0, 1.0, 30, Tween.TransitionType.Quad, Tween.EaseType.Out);
+		tween.Start();
     }
+	
+	private void SetupNavigationPolygon(List<List<IntPoint>> solution, int rows, int columns)
+	{
+		var poly = new NavigationPolygon();
+		var outline = new List<Vector2>();
+		outline.Add(new Vector2(-SPRITE_WIDTH2, -SPRITE_HEIGHT2));
+		outline.Add(new Vector2(SPRITE_WIDTH * columns + SPRITE_WIDTH2, -SPRITE_HEIGHT2));
+		outline.Add(new Vector2(SPRITE_WIDTH * columns + SPRITE_WIDTH2, SPRITE_HEIGHT * rows + SPRITE_HEIGHT2));
+		outline.Add(new Vector2(-SPRITE_WIDTH2, SPRITE_HEIGHT * rows + SPRITE_HEIGHT2));
+		poly.AddOutline(outline.ToArray());
+		
+		foreach(var path in solution)
+		{
+			GD.Print("outline");
+			outline = new List<Vector2>();
+			foreach(var point in path)
+			{
+				GD.Print($"point {point.X}, {point.Y}");
+				outline.Add(new Vector2(point.X, point.Y));
+			}
+			poly.AddOutline(outline.ToArray());
+		}
+		
+		poly.MakePolygonsFromOutlines();
+		
+		for(int i = 0; i < poly.GetPolygonCount(); i++)
+		{
+			var polygon = poly.GetPolygon(i);
+			GD.Print($"polygon points {polygon.Length}");
+		}
+		
+		nav2d.NavpolyAdd(poly, new Transform2D());
+	}
+	
+	private void MoveAlienAlongPath(float val)
+	{
+		pathFollow.UnitOffset = val;
+	}
 
 	private Vector2 GetPosition(int x, int y)
 	{
 		var pos = new Vector2(x * SPRITE_WIDTH + LEFT_MARGIN, y * SPRITE_HEIGHT + TOP_MARGIN);
 		return pos;
 	}
-	
+
+#if DRAW_CLIPPER
 	public override void _Draw()
 	{
 		foreach(var path in solution)
@@ -115,5 +184,11 @@ public class main : Node2D
 			
 			DrawLine(new Vector2(path[path.Count - 1].X, path[path.Count - 1].Y), new Vector2(path[0].X, path[0].Y), new Color(1, 0, 0));
 		}
+	}
+#endif
+
+	private void _onTweenCompleted(Godot.Object obj, NodePath key)
+	{
+	    // Replace with function body
 	}
 }

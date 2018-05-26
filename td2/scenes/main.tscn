@@ -41,4 +41,6 @@ playback/repeat = false
 playback/speed = 1.0
 _sections_unfolded = [ "playback" ]
 
+[connection signal="tween_completed" from="Tween" to="." method="_onTweenCompleted"]
+
 
