@@ -6,4 +6,6 @@ screenshots/
 *.exp
 *.lib
 *.obj
+*.pdb
+*.cache
 *.*~
