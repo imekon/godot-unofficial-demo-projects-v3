@@ -1,3 +1,7 @@
+//#define USE_CLIPPER
+#define USE_RECTS
+//#define DRAW_CLIPPER
+
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -23,8 +27,10 @@ public class main : Node2D
 	private const int SPRITE_HEIGHT = 64;
 	private const int SPRITE_WIDTH2 = 32;
 	private const int SPRITE_HEIGHT2 = 32;
-	private const int LEFT_MARGIN = 40;
-	private const int TOP_MARGIN = 40;
+	private const int LEFT_MARGIN = 80;
+	private const int TOP_MARGIN = 80;
+	private const int CONTAINER_MARGIN = 5;
+	private const int SPRITE_MARGIN = 20;
 	
 	private List<List<IntPoint>> solution;
 	
@@ -40,12 +46,12 @@ public class main : Node2D
 			new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
 			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
-			new List<int> { 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
-			new List<int> { 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
-			new List<int> { 2, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 3 },
-			new List<int> { 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
-			new List<int> { 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			new List<int> { 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
+			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
+			new List<int> { 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3 },
+			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
+			new List<int> { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+			new List<int> { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 			new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
 		};
 		
@@ -53,9 +59,6 @@ public class main : Node2D
 		path2d = (Path2D)GetNode("Path2D");
 		pathFollow = (PathFollow2D)GetNode("Path2D/PathFollow2D");
 		tween = (Tween)GetNode("Tween");
-		
-		if (tween == null)
-			GD.Print("tween is null!");
 		
 		ground = (PackedScene)ResourceLoader.Load("res://scenes/ground.tscn");
 		wall = (PackedScene)ResourceLoader.Load("res://scenes/wall.tscn");
@@ -65,8 +68,14 @@ public class main : Node2D
 
 		var rows = level.Count;
 		var columns = level[0].Count;
-		
+
+#if USE_CLIPPER		
 		var clipper = new Clipper();
+#endif
+
+#if USE_RECTS
+		var rects = new List<List<Vector2>>();
+#endif
 
 		for(int y = 0; y < rows; y++)
 		{
@@ -85,6 +94,7 @@ public class main : Node2D
 						
 					case 1:
 						instance = (Sprite)wall.Instance();
+#if USE_CLIPPER
 						var path = new List<IntPoint>()
 						{
 							new IntPoint(pos.x - SPRITE_WIDTH2, pos.y - SPRITE_HEIGHT2),
@@ -93,6 +103,18 @@ public class main : Node2D
 							new IntPoint(pos.x - SPRITE_WIDTH2, pos.y + SPRITE_HEIGHT2)
 						};
 						clipper.AddPath(path, PolyType.ptSubject, true);
+#endif
+
+#if USE_RECTS
+						var path = new List<Vector2>
+						{
+							new Vector2(pos.x - SPRITE_WIDTH2 - SPRITE_MARGIN, pos.y - SPRITE_HEIGHT2 - SPRITE_MARGIN),
+							new Vector2(pos.x + SPRITE_WIDTH2 + SPRITE_MARGIN, pos.y - SPRITE_HEIGHT2 - SPRITE_MARGIN),
+							new Vector2(pos.x + SPRITE_WIDTH2 + SPRITE_MARGIN, pos.y + SPRITE_HEIGHT2 + SPRITE_MARGIN),
+							new Vector2(pos.x - SPRITE_WIDTH2 - SPRITE_MARGIN, pos.y + SPRITE_HEIGHT2 + SPRITE_MARGIN)
+						};
+						rects.Add(path);
+#endif
 						break;
 						
 					case 2:
@@ -110,15 +132,23 @@ public class main : Node2D
 				AddChild(instance);
 			}
 		}
-        
+
+#if USE_CLIPPER
 		clipper.Execute(ClipType.ctUnion, solution);
-		SetupNavigationPolygon(solution, rows, columns);
+		SetupNavigationPolygonFromClipper(solution, rows, columns);
+#endif
+
+#if USE_RECTS
+		SetupNavigationPolygonFromRects(rects, rows, columns);
+#endif
 		
+		GD.Print($"enemy: {enemyPos.x}, {enemyPos.y}");
+		GD.Print($"home: {homePos.x}, {homePos.y}");
 		var follow = nav2d.GetSimplePath(enemyPos, homePos);
 		
 		foreach(var point in follow)
 		{
-			GD.Print($"point {point.x}, {point.y}");
+			GD.Print($"follow {point.x}, {point.y}");
 			path2d.Curve.AddPoint(point);
 		}
 			
@@ -128,23 +158,44 @@ public class main : Node2D
 		tween.Start();
     }
 	
-	private void SetupNavigationPolygon(List<List<IntPoint>> solution, int rows, int columns)
+	private void SetupNavigationPolygonFromRects(List<List<Vector2>> rects, int rows, int columns)
 	{
 		var poly = new NavigationPolygon();
-		var outline = new List<Vector2>();
-		outline.Add(new Vector2(-SPRITE_WIDTH2, -SPRITE_HEIGHT2));
-		outline.Add(new Vector2(SPRITE_WIDTH * columns + SPRITE_WIDTH2, -SPRITE_HEIGHT2));
-		outline.Add(new Vector2(SPRITE_WIDTH * columns + SPRITE_WIDTH2, SPRITE_HEIGHT * rows + SPRITE_HEIGHT2));
-		outline.Add(new Vector2(-SPRITE_WIDTH2, SPRITE_HEIGHT * rows + SPRITE_HEIGHT2));
-		poly.AddOutline(outline.ToArray());
+		//List<Vector2> outline = null;
+		//outline = new List<Vector2>();
+		//outline.Add(new Vector2(-SPRITE_WIDTH2 + LEFT_MARGIN - CONTAINER_MARGIN, -SPRITE_HEIGHT2 + TOP_MARGIN - CONTAINER_MARGIN));
+		//outline.Add(new Vector2(SPRITE_WIDTH * columns + SPRITE_WIDTH2 + LEFT_MARGIN + CONTAINER_MARGIN, -SPRITE_HEIGHT2 + TOP_MARGIN - CONTAINER_MARGIN));
+		//outline.Add(new Vector2(SPRITE_WIDTH * columns + SPRITE_WIDTH2 + LEFT_MARGIN + CONTAINER_MARGIN, SPRITE_HEIGHT * rows + SPRITE_HEIGHT2 + TOP_MARGIN + CONTAINER_MARGIN));
+		//outline.Add(new Vector2(-SPRITE_WIDTH2 + LEFT_MARGIN - CONTAINER_MARGIN, SPRITE_HEIGHT * rows + SPRITE_HEIGHT2 + TOP_MARGIN + CONTAINER_MARGIN));
+		//poly.AddOutline(outline.ToArray());
+		
+		foreach(var rect in rects)
+		{
+			poly.AddOutline(rect.ToArray());
+		}
+		
+		poly.MakePolygonsFromOutlines();
+		nav2d.NavpolyAdd(poly, new Transform2D());
+	}
+	
+	private void SetupNavigationPolygonFromClipper(List<List<IntPoint>> solution, int rows, int columns)
+	{
+		var poly = new NavigationPolygon();
+		List<Vector2> outline = null;
+		//outline = new List<Vector2>();
+		//outline.Add(new Vector2(-SPRITE_WIDTH2 + LEFT_MARGIN - 2, -SPRITE_HEIGHT2 + TOP_MARGIN + 2));
+		//outline.Add(new Vector2(SPRITE_WIDTH * columns + SPRITE_WIDTH2 + LEFT_MARGIN - 2, -SPRITE_HEIGHT2 + TOP_MARGIN + 2));
+		//outline.Add(new Vector2(SPRITE_WIDTH * columns + SPRITE_WIDTH2 + LEFT_MARGIN - 2, SPRITE_HEIGHT * rows + SPRITE_HEIGHT2 + TOP_MARGIN + 2));
+		//outline.Add(new Vector2(-SPRITE_WIDTH2 + LEFT_MARGIN - 2, SPRITE_HEIGHT * rows + SPRITE_HEIGHT2 + TOP_MARGIN + 2));
+		//poly.AddOutline(outline.ToArray());
 		
 		foreach(var path in solution)
 		{
-			GD.Print("outline");
+			//GD.Print("outline");
 			outline = new List<Vector2>();
 			foreach(var point in path)
 			{
-				GD.Print($"point {point.X}, {point.Y}");
+				//GD.Print($"point {point.X}, {point.Y}");
 				outline.Add(new Vector2(point.X, point.Y));
 			}
 			poly.AddOutline(outline.ToArray());
@@ -155,7 +206,7 @@ public class main : Node2D
 		for(int i = 0; i < poly.GetPolygonCount(); i++)
 		{
 			var polygon = poly.GetPolygon(i);
-			GD.Print($"polygon points {polygon.Length}");
+			//GD.Print($"polygon points {polygon.Length}");
 		}
 		
 		nav2d.NavpolyAdd(poly, new Transform2D());
@@ -163,6 +214,7 @@ public class main : Node2D
 	
 	private void MoveAlienAlongPath(float val)
 	{
+		//GD.Print($"move {val}");
 		pathFollow.UnitOffset = val;
 	}
 
