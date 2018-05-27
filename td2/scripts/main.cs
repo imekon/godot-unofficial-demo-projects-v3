@@ -1,6 +1,6 @@
-//#define USE_CLIPPER
-#define USE_RECTS
-//#define DRAW_CLIPPER
+#define USE_CLIPPER
+//#define USE_RECTS
+#define DRAW_CLIPPER
 
 using Godot;
 using System;
@@ -29,7 +29,7 @@ public class main : Node2D
 	private const int SPRITE_HEIGHT2 = 32;
 	private const int LEFT_MARGIN = 80;
 	private const int TOP_MARGIN = 80;
-	private const int CONTAINER_MARGIN = 5;
+	private const int CONTAINER_MARGIN = 10;
 	private const int SPRITE_MARGIN = 20;
 	
 	private List<List<IntPoint>> solution;
@@ -182,12 +182,13 @@ public class main : Node2D
 	{
 		var poly = new NavigationPolygon();
 		List<Vector2> outline = null;
-		//outline = new List<Vector2>();
-		//outline.Add(new Vector2(-SPRITE_WIDTH2 + LEFT_MARGIN - 2, -SPRITE_HEIGHT2 + TOP_MARGIN + 2));
-		//outline.Add(new Vector2(SPRITE_WIDTH * columns + SPRITE_WIDTH2 + LEFT_MARGIN - 2, -SPRITE_HEIGHT2 + TOP_MARGIN + 2));
-		//outline.Add(new Vector2(SPRITE_WIDTH * columns + SPRITE_WIDTH2 + LEFT_MARGIN - 2, SPRITE_HEIGHT * rows + SPRITE_HEIGHT2 + TOP_MARGIN + 2));
-		//outline.Add(new Vector2(-SPRITE_WIDTH2 + LEFT_MARGIN - 2, SPRITE_HEIGHT * rows + SPRITE_HEIGHT2 + TOP_MARGIN + 2));
-		//poly.AddOutline(outline.ToArray());
+		outline = new List<Vector2>();
+		outline.Add(new Vector2(-SPRITE_WIDTH2 + LEFT_MARGIN - CONTAINER_MARGIN, -SPRITE_HEIGHT2 + TOP_MARGIN - CONTAINER_MARGIN));
+		outline.Add(new Vector2(SPRITE_WIDTH * columns + SPRITE_WIDTH2 + LEFT_MARGIN + CONTAINER_MARGIN, -SPRITE_HEIGHT2 + TOP_MARGIN - CONTAINER_MARGIN));
+		outline.Add(new Vector2(SPRITE_WIDTH * columns + SPRITE_WIDTH2 + LEFT_MARGIN + CONTAINER_MARGIN, SPRITE_HEIGHT * rows + SPRITE_HEIGHT2 + TOP_MARGIN + CONTAINER_MARGIN));
+		outline.Add(new Vector2(-SPRITE_WIDTH2 + LEFT_MARGIN - CONTAINER_MARGIN, SPRITE_HEIGHT * rows + SPRITE_HEIGHT2 + TOP_MARGIN + CONTAINER_MARGIN));
+		//outline.Add(new Vector2(-SPRITE_WIDTH2 + LEFT_MARGIN - CONTAINER_MARGIN, -SPRITE_HEIGHT2 + TOP_MARGIN - CONTAINER_MARGIN));
+		poly.AddOutline(outline.ToArray());
 		
 		foreach(var path in solution)
 		{
@@ -198,16 +199,27 @@ public class main : Node2D
 				//GD.Print($"point {point.X}, {point.Y}");
 				outline.Add(new Vector2(point.X, point.Y));
 			}
+			//var lastPoint = path[0];
+			//outline.Add(new Vector2(lastPoint.X, lastPoint.Y));
 			poly.AddOutline(outline.ToArray());
 		}
 		
+		//for(int i = 0; i < poly.GetOutlineCount(); i++)
+		//{
+		//	var outlineArray = poly.GetOutline(i);
+		//	foreach(var point in outlineArray)
+		//	{
+		//		GD.Print($"point {point.x}, {point.y}");
+		//	}
+		//}
+		
 		poly.MakePolygonsFromOutlines();
 		
-		for(int i = 0; i < poly.GetPolygonCount(); i++)
-		{
-			var polygon = poly.GetPolygon(i);
-			//GD.Print($"polygon points {polygon.Length}");
-		}
+		//for(int i = 0; i < poly.GetPolygonCount(); i++)
+		//{
+		//	var polygon = poly.GetPolygon(i);
+		//	GD.Print($"polygon points {polygon.Length}");
+		//}
 		
 		nav2d.NavpolyAdd(poly, new Transform2D());
 	}
