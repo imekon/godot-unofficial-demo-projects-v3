@@ -50,8 +50,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="scripts\clipper.cs" />
+    <Compile Include="scripts\Grid.cs" />
     <Compile Include="scripts\main.cs" />
+    <Compile Include="scripts\MinHeap.cs" />
+    <Compile Include="scripts\MinHeapNode.cs" />
+    <Compile Include="scripts\MovementPatterns.cs" />
+    <Compile Include="scripts\Offset.cs" />
+    <Compile Include="scripts\PathFinder.cs" />
+    <Compile Include="scripts\PathFinder.Debug.cs" />
+    <Compile Include="scripts\Position.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
