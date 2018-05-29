@@ -34,12 +34,12 @@ public class main : Node2D
 		{
 			new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
-			new List<int> { 1, 0, 4, 0, 0, 1, 0, 4, 4, 0, 0, 1 },
+			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
 			new List<int> { 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1 },
-			new List<int> { 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 4, 1 },
+			new List<int> { 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 },
 			new List<int> { 2, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 3 },
 			new List<int> { 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 },
-			new List<int> { 1, 0, 1, 0, 0, 4, 0, 0, 1, 0, 0, 1 },
+			new List<int> { 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 },
 			new List<int> { 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 },
 			new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
 		};
@@ -91,10 +91,10 @@ public class main : Node2D
 						homePos = new Position(x, y);
 						break;
 						
-					case 4:
-						instance = (Sprite)ground.Instance();
-						grid.SetCellCost(new Position(x, y), 4.0f);
-						break;
+					//case 4:
+					//	instance = (Sprite)ground.Instance();
+					//	grid.SetCellCost(new Position(x, y), 4.0f);
+					//	break;
 				}
 				
 				instance.Position = new Vector2(pos.X, pos.Y);
@@ -102,7 +102,14 @@ public class main : Node2D
 			}
 		}
 		
-		var path = grid.GetPath(enemyPos, homePos);
+		var movement = new[] 
+		{
+			new Offset(-1, 0), 
+			new Offset(0, -1),
+			new Offset(1, 0),
+			new Offset(0, 1)
+		};
+		var path = grid.GetPath(enemyPos, homePos, movement);
 		
 		foreach(var point in path)
 		{
