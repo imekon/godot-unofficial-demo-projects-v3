@@ -17,26 +17,4 @@ script = ExtResource( 1 )
 
 curve = SubResource( 1 )
 
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" index="0"]
-
-offset = 0.0
-h_offset = 0.0
-v_offset = 0.0
-rotate = true
-cubic_interp = true
-loop = false
-lookahead = 4.0
-
-[node name="Tween" type="Tween" parent="." index="1"]
-
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
-_sections_unfolded = [ "playback" ]
-
-[connection signal="tween_completed" from="Tween" to="." method="_onTweenCompleted"]
-
 

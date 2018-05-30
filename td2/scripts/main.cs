@@ -6,14 +6,15 @@ using System.Collections.Generic;
 public class main : Node2D
 {
 	private Path2D path2d;
-	private PathFollow2D pathFollow;
-	private Tween tween;
+	private PathFollow2D[] pathFollowers;
 	
 	private PackedScene ground;
 	private PackedScene wall;
 	private PackedScene home;
 	private PackedScene enemy;
 	private PackedScene alien1;
+	
+	private float now;
 	
 	private const int SPRITE_WIDTH = 64;
 	private const int SPRITE_HEIGHT = 64;
@@ -23,9 +24,11 @@ public class main : Node2D
 	private const int TOP_MARGIN = 80;
 	private const int CONTAINER_MARGIN = 10;
 	private const int SPRITE_MARGIN = 20;
+	private const int NUM_FOLLOWERS = 10;
 	
 	public main()
 	{
+		now = 0.0f;
 	}
 	
     public override void _Ready()
@@ -35,7 +38,7 @@ public class main : Node2D
 			new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
 			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
-			new List<int> { 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1 },
+			new List<int> { 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1 },
 			new List<int> { 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 },
 			new List<int> { 2, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 3 },
 			new List<int> { 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 },
@@ -45,8 +48,6 @@ public class main : Node2D
 		};
 		
 		path2d = (Path2D)GetNode("Path2D");
-		pathFollow = (PathFollow2D)GetNode("Path2D/PathFollow2D");
-		tween = (Tween)GetNode("Tween");
 		
 		ground = (PackedScene)ResourceLoader.Load("res://scenes/ground.tscn");
 		wall = (PackedScene)ResourceLoader.Load("res://scenes/wall.tscn");
@@ -117,25 +118,38 @@ public class main : Node2D
 			path2d.Curve.AddPoint(new Vector2(pos.X, pos.Y));
 		}
 
-		pathFollow.AddChild(alien1.Instance());
+		pathFollowers = new PathFollow2D[NUM_FOLLOWERS];
 		
-		tween.InterpolateMethod(this, "MoveAlienAlongPath", 0.0, 1.0, 20, Tween.TransitionType.Linear, Tween.EaseType.Out);
-		tween.Start();
-    }
-	
-	private void MoveAlienAlongPath(float val)
-	{
-		pathFollow.UnitOffset = val;
+		for (int i = 0; i < NUM_FOLLOWERS; i++)
+		{
+			var pathFollower = new PathFollow2D { Loop = false };
+			pathFollower.AddChild(alien1.Instance());
+			path2d.AddChild(pathFollower);
+			pathFollowers[i] = pathFollower;
+		}
 	}
+	
+	public override void _Process(float delta)
+	{
+		now += delta / 10.0f;
 
+		for (int i = 0; i < NUM_FOLLOWERS; i++)
+		{
+			if (pathFollowers[i] == null)
+				continue;
+				
+			pathFollowers[i].UnitOffset = now - i * 0.03f;
+			if (pathFollowers[i].UnitOffset > 1.0f)
+			{
+				pathFollowers[i].QueueFree();
+				pathFollowers[i] = null;
+			}
+		}
+	}
+	
 	private Position GetPosition(int x, int y)
 	{
 		var pos = new Position(x * SPRITE_WIDTH + LEFT_MARGIN, y * SPRITE_HEIGHT + TOP_MARGIN);
 		return pos;
-	}
-
-	private void _onTweenCompleted(Godot.Object obj, NodePath key)
-	{
-	    // Replace with function body
 	}
 }
