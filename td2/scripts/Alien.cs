@@ -28,6 +28,6 @@ public class Alien : Sprite
 
 	public override void _Draw()
 	{
-		DrawRect(new Rect2(-20, -20, 40 * health / 100, 8), new Color(255, 0, 0), true);
+		DrawRect(new Rect2(-20, -30, 40 * health / 100, 6), new Color(255, 0, 0), true);
 	}
 }

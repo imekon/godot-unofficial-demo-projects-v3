@@ -20,8 +20,8 @@ public class main : Node2D
 	private const int SPRITE_HEIGHT = 64;
 	private const int SPRITE_WIDTH2 = 32;
 	private const int SPRITE_HEIGHT2 = 32;
-	private const int LEFT_MARGIN = 80;
-	private const int TOP_MARGIN = 80;
+	private const int LEFT_MARGIN = 100;
+	private const int TOP_MARGIN = 90;
 	private const int CONTAINER_MARGIN = 10;
 	private const int SPRITE_MARGIN = 20;
 	private const int NUM_FOLLOWERS = 10;
@@ -39,9 +39,9 @@ public class main : Node2D
 			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
 			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
 			new List<int> { 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1 },
-			new List<int> { 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 },
+			new List<int> { 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1 },
 			new List<int> { 2, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 3 },
-			new List<int> { 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 },
+			new List<int> { 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1 },
 			new List<int> { 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 },
 			new List<int> { 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 },
 			new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
@@ -122,7 +122,7 @@ public class main : Node2D
 		
 		for (int i = 0; i < NUM_FOLLOWERS; i++)
 		{
-			var pathFollower = new PathFollow2D { Loop = false };
+			var pathFollower = new PathFollow2D { Loop = false, Rotate = false };
 			pathFollower.AddChild(alien1.Instance());
 			path2d.AddChild(pathFollower);
 			pathFollowers[i] = pathFollower;
