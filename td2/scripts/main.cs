@@ -13,6 +13,7 @@ public class main : Node2D
 	private PackedScene home;
 	private PackedScene enemy;
 	private PackedScene alien1;
+	private PackedScene tower1;
 	
 	private float now;
 	
@@ -39,7 +40,7 @@ public class main : Node2D
 			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
 			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
 			new List<int> { 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1 },
-			new List<int> { 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1 },
+			new List<int> { 1, 0, 1, 1, 0, 1, 0, 4, 1, 0, 0, 1 },
 			new List<int> { 2, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 3 },
 			new List<int> { 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1 },
 			new List<int> { 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 },
@@ -54,6 +55,7 @@ public class main : Node2D
 		home = (PackedScene)ResourceLoader.Load("res://scenes/home.tscn");
 		enemy = (PackedScene)ResourceLoader.Load("res://scenes/enemy.tscn");
 		alien1 = (PackedScene)ResourceLoader.Load("res://scenes/Alien1.tscn");
+		tower1 = (PackedScene)ResourceLoader.Load("res://scenes/Tower1.tscn");
 
 		var rows = level.Count;
 		var columns = level[0].Count;
@@ -71,6 +73,8 @@ public class main : Node2D
 				var pos = GetPosition(x, y);
 				
 				Sprite instance = null;
+				Sprite tower = null;
+				
 				switch(index)
 				{
 					case 0:
@@ -92,14 +96,21 @@ public class main : Node2D
 						homePos = new Position(x, y);
 						break;
 						
-					//case 4:
-					//	instance = (Sprite)ground.Instance();
-					//	grid.SetCellCost(new Position(x, y), 4.0f);
-					//	break;
+					case 4:
+						instance = (Sprite)ground.Instance();
+						grid.BlockCell(new Position(x, y));
+						
+						tower = (Sprite)tower1.Instance();
+						break;
 				}
 				
 				instance.Position = new Vector2(pos.X, pos.Y);
 				AddChild(instance);
+				if (tower != null)
+				{
+					tower.Position = new Vector2(pos.X, pos.Y);
+					AddChild(tower);
+				}
 			}
 		}
 		
@@ -131,18 +142,36 @@ public class main : Node2D
 	
 	public override void _Process(float delta)
 	{
-		now += delta / 10.0f;
+		now += delta / 20.0f;
 
 		for (int i = 0; i < NUM_FOLLOWERS; i++)
 		{
 			if (pathFollowers[i] == null)
 				continue;
 				
-			pathFollowers[i].UnitOffset = now - i * 0.03f;
+			pathFollowers[i].UnitOffset = now - i * 0.06f;
 			if (pathFollowers[i].UnitOffset > 1.0f)
 			{
 				pathFollowers[i].QueueFree();
 				pathFollowers[i] = null;
+			}
+		}
+		
+		foreach(Tower1 tower in GetTree().GetNodesInGroup("tower"))
+		{
+			var towerPos = tower.Position;
+			
+			foreach(Node2D alien in GetTree().GetNodesInGroup("alien"))
+			{
+				var alienPos = alien.Position;
+				
+				var distance = towerPos.DistanceTo(alienPos);
+				GD.Print($"distance: {distance}");
+				if (distance < tower.Range)
+				{
+					var vector = alienPos - towerPos;
+					tower.FireAtAlien(vector);
+				}
 			}
 		}
 	}

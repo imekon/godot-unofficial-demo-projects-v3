@@ -3,7 +3,9 @@
 [ext_resource path="res://images/alien1.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Alien.cs" type="Script" id=2]
 
-[node name="Alien1" type="Sprite" index="0"]
+[node name="Alien1" type="Sprite" groups=[
+"alien",
+]]
 
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
