@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="scripts\Alien.cs" />
+    <Compile Include="scripts\Bullet.cs" />
     <Compile Include="scripts\Grid.cs" />
     <Compile Include="scripts\main.cs" />
     <Compile Include="scripts\MinHeap.cs" />

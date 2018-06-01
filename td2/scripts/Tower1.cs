@@ -5,6 +5,9 @@ public class Tower1 : Sprite
 {
 	private int range;
 	private PackedScene bullet;
+	private int lastFired;
+	
+	private const int rateOfFire = 500;
 	
 	public int Range
 	{
@@ -17,7 +20,8 @@ public class Tower1 : Sprite
 	
 	public Tower1()
 	{
-		range = 200;
+		range = 100;
+		lastFired = 0;
 	}
 	
     public override void _Ready()
@@ -27,6 +31,14 @@ public class Tower1 : Sprite
 
 	public void FireAtAlien(Vector2 vector)
 	{
-		GD.Print("Fire at alien");
+		var now = OS.GetTicksMsec();
+		if (now - lastFired > rateOfFire)
+		{
+			lastFired = now;
+			var bulletInst = (Bullet)bullet.Instance();
+			bulletInst.Position = GlobalPosition;
+			bulletInst.Direction = vector - GlobalPosition;
+			GetParent().AddChild(bulletInst);
+		}
 	}
 }
