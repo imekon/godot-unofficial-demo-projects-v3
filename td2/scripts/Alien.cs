@@ -1,33 +1,33 @@
 using Godot;
 using System;
 
-public class Alien : Sprite
+public class Alien : Area2D
 {
-	private int health;
+	[Export]
+	public int Health = 100;
 	
-	public int Health
-	{
-		get { return health; }
-		set
-		{
-			health = value;
-		}
-	}
+	private CollisionShape2D collision;
 	
 	public Alien()
 	{
-		health = 100;
 	}
 	
     public override void _Ready()
     {
         // Called every time the node is added to the scene.
         // Initialization here
-        
+        collision = (CollisionShape2D)GetNode("CollisionShape2D");
     }
 
 	public override void _Draw()
 	{
-		DrawRect(new Rect2(-20, -30, 40 * health / 100, 6), new Color(255, 0, 0), true);
+		DrawRect(new Rect2(-20, -30, 40 * Health / 100, 6), new Color(255, 0, 0), true);
+	}
+
+	private void OnAlienBodyEntered(Godot.Object body)
+	{
+	    GD.Print("collision!");
+		
+		collision.Disabled = true;
 	}
 }

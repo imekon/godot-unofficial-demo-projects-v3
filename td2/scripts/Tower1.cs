@@ -3,24 +3,16 @@ using System;
 
 public class Tower1 : Sprite
 {
-	private int range;
 	private PackedScene bullet;
 	private int lastFired;
 	
 	private const int rateOfFire = 500;
 	
-	public int Range
-	{
-		get { return range; }
-		set
-		{
-			range = value;
-		}
-	}
+	[Export]
+	public int Range = 100;
 	
 	public Tower1()
 	{
-		range = 100;
 		lastFired = 0;
 	}
 	
