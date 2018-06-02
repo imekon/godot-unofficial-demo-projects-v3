@@ -14,4 +14,4 @@ Menu sample - heh, never done menus with Godot yet!
 ## plugins
 A version of GDNative simple C plugin (with corrected source code). Tried building it with VS 2017.
 ## TD2
-Tower Defense game using Navigation2D and NavigationPolygon. Needs work as enemy can move between cracks in walls! Looking for a way to merge (union) polygons (rectangles). Once I have that, the enemies will move around walls.
+Tower Defense game in C#. You can see a video of it running here: https://youtu.be/U-c7m47kb10
