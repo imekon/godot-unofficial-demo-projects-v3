@@ -7,6 +7,7 @@ public class main : Node2D
 {
 	private Path2D path2d;
 	private PathFollow2D[] pathFollowers;
+	private Label scoreLabel;
 	
 	private PackedScene ground;
 	private PackedScene wall;
@@ -16,6 +17,7 @@ public class main : Node2D
 	private PackedScene tower1;
 	
 	private float now;
+	private int score;
 	
 	private const int SPRITE_WIDTH = 64;
 	private const int SPRITE_HEIGHT = 64;
@@ -30,6 +32,7 @@ public class main : Node2D
 	public main()
 	{
 		now = 0.0f;
+		score = 0;
 	}
 	
     public override void _Ready()
@@ -49,6 +52,7 @@ public class main : Node2D
 		};
 		
 		path2d = (Path2D)GetNode("Path2D");
+		scoreLabel = (Label)GetNode("Score");
 		
 		ground = (PackedScene)ResourceLoader.Load("res://scenes/ground.tscn");
 		wall = (PackedScene)ResourceLoader.Load("res://scenes/wall.tscn");
@@ -134,7 +138,9 @@ public class main : Node2D
 		for (int i = 0; i < NUM_FOLLOWERS; i++)
 		{
 			var pathFollower = new PathFollow2D { Loop = false, Rotate = false };
-			pathFollower.AddChild(alien1.Instance());
+			var alien = alien1.Instance();
+			alien.Connect("Died", this, "OnAlienDied");
+			pathFollower.AddChild(alien);
 			path2d.AddChild(pathFollower);
 			pathFollowers[i] = pathFollower;
 		}
@@ -170,6 +176,7 @@ public class main : Node2D
 				{
 					var vector = alienPos - towerPos;
 					tower.FireAtAlien(vector);
+					tower.LookAt(alienPos);
 				}
 			}
 		}
@@ -179,5 +186,11 @@ public class main : Node2D
 	{
 		var pos = new Position(x * SPRITE_WIDTH + LEFT_MARGIN, y * SPRITE_HEIGHT + TOP_MARGIN);
 		return pos;
+	}
+	
+	private void OnAlienDied()
+	{
+		score += 30;
+		scoreLabel.Text = $"Score: {score}";
 	}
 }

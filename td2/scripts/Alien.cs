@@ -6,6 +6,9 @@ public class Alien : Area2D
 	[Export]
 	public int Health = 100;
 	
+	[Signal]
+	public delegate void Died();
+	
 	private CollisionShape2D collision;
 	
 	public Alien()
@@ -35,7 +38,10 @@ public class Alien : Area2D
 			Update();
 			((Bullet)area).QueueFree();
 			if (Health <= 0)
+			{
+				EmitSignal(nameof(Died));
 				QueueFree();
+			}
 		}
 	}
 }

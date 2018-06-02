@@ -9,5 +9,6 @@
 
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
+Range = 100
 
 
