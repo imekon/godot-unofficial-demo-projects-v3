@@ -24,10 +24,18 @@ public class Alien : Area2D
 		DrawRect(new Rect2(-20, -30, 40 * Health / 100, 6), new Color(255, 0, 0), true);
 	}
 
-	private void OnAlienBodyEntered(Godot.Object body)
+	private void _onAlien1Entered(Godot.Object area)
 	{
-	    GD.Print("collision!");
-		
-		collision.Disabled = true;
+	    if (area is Alien)
+			return;
+			
+		if (area is Bullet)
+		{
+			Health -= 30;
+			Update();
+			((Bullet)area).QueueFree();
+			if (Health <= 0)
+				QueueFree();
+		}
 	}
 }

@@ -161,16 +161,11 @@ public class main : Node2D
 		{
 			var towerPos = tower.Position;
 			
-			//GD.Print($"tower: {towerPos.x}, {towerPos.y}");
-			
 			foreach(Alien alien in GetTree().GetNodesInGroup("alien"))
 			{
 				var alienPos = alien.GlobalPosition;
 				
-				//GD.Print($"alien: {alienPos.x}, {alienPos.y}");
-				
 				var distance = towerPos.DistanceTo(alienPos);
-				//GD.Print($"distance: {distance}");
 				if (distance < tower.Range)
 				{
 					var vector = alienPos - towerPos;

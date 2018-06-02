@@ -6,7 +6,7 @@ public class Tower1 : Sprite
 	private PackedScene bullet;
 	private int lastFired;
 	
-	private const int rateOfFire = 500;
+	private const int rateOfFire = 250;
 	
 	[Export]
 	public int Range = 100;
@@ -29,7 +29,7 @@ public class Tower1 : Sprite
 			lastFired = now;
 			var bulletInst = (Bullet)bullet.Instance();
 			bulletInst.Position = GlobalPosition;
-			bulletInst.Direction = vector - GlobalPosition;
+			bulletInst.Direction = vector;
 			GetParent().AddChild(bulletInst);
 		}
 	}

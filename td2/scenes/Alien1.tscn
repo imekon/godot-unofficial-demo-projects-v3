@@ -32,6 +32,6 @@ texture = ExtResource( 2 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[connection signal="body_entered" from="." to="." method="OnAlienBodyEntered"]
+[connection signal="area_entered" from="." to="." method="_onAlien1Entered"]
 
 

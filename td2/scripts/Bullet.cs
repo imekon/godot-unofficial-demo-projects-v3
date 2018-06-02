@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Bullet : Sprite
+public class Bullet : Area2D
 {
 	public Vector2 Direction = new Vector2(0, 0);
 	
@@ -13,6 +13,6 @@ public class Bullet : Sprite
 
     public override void _Process(float delta)
     {
-		Position = new Vector2(Position.x + Direction.x * delta / speed, Position.y - Direction.y * delta / speed);
+		Position = Position + Direction * delta * speed;
     }
 }
