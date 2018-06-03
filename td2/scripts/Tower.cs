@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Tower1 : Sprite
+public class Tower : Sprite
 {
 	private PackedScene bullet;
 	private int lastFired;
@@ -11,7 +11,10 @@ public class Tower1 : Sprite
 	[Export]
 	public int Range = 100;
 	
-	public Tower1()
+	public int X;
+	public int Y;
+	
+	public Tower()
 	{
 		lastFired = 0;
 	}

@@ -72,7 +72,7 @@ public class main : Node2D
 				var pos = GetPosition(x, y);
 				
 				Node2D instance = null;
-				Sprite tower = null;
+				Tower tower = null;
 				
 				switch(index)
 				{
@@ -99,7 +99,9 @@ public class main : Node2D
 						instance = (Sprite)ground.Instance();
 						grid.BlockCell(new Position(x, y));
 						
-						tower = (Sprite)tower1.Instance();
+						tower = (Tower)tower1.Instance();
+						tower.X = x;
+						tower.Y = y;
 						break;
 				}
 				
@@ -156,12 +158,26 @@ public class main : Node2D
 	{
 		if (Input.IsActionPressed("ui_choose"))
 		{
+			var position = GetViewport().GetMousePosition();
+			var x = (int)(position.x + SPRITE_WIDTH2 - LEFT_MARGIN) / SPRITE_WIDTH;
+			var y = (int)(position.y + SPRITE_HEIGHT2 - TOP_MARGIN) / SPRITE_HEIGHT;
+			
+			Tower found = null;
+			
+			foreach(var tower in GetTree().GetNodesInGroup("tower"))
+			{
+				if (tower.X == x && tower.Y == y)
+				{
+					found = tower;
+					break;
+				}
+			}
 		}
 	}
 	
 	private void TowerTargetting()
 	{
-		foreach(Tower1 tower in GetTree().GetNodesInGroup("tower"))
+		foreach(Tower tower in GetTree().GetNodesInGroup("tower"))
 		{
 			var towerPos = tower.Position;
 			
