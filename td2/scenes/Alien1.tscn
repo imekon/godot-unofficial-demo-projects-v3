@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 12, 12 )
 
-[node name="Alien1" type="Area2D" index="0" groups=[
+[node name="Alien1" type="Area2D" groups=[
 "alien",
 ]]
 
@@ -22,6 +22,7 @@ audio_bus_name = "Master"
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
 Health = 100
+Score = 5
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 

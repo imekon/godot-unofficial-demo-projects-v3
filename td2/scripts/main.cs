@@ -9,6 +9,7 @@ public class main : Node2D
 	private Path2D path2d;
 	private PathFollow2D[] pathFollowers;
 	private Label creditsLabel;
+	private Label healthLabel;
 	
 	private PackedScene ground;
 	private PackedScene wall;
@@ -19,6 +20,7 @@ public class main : Node2D
 	
 	private float now;
 	private int credits;
+	private int health;
 	
 	private const int SPRITE_WIDTH = 64;
 	private const int SPRITE_HEIGHT = 64;
@@ -33,7 +35,8 @@ public class main : Node2D
 	public main()
 	{
 		now = 0.0f;
-		credits = 0;
+		credits = 30;
+		health = 10;
 		
 		levels = new Levels();
 	}
@@ -44,6 +47,7 @@ public class main : Node2D
 		
 		path2d = (Path2D)GetNode("Path2D");
 		creditsLabel = (Label)GetNode("Credits");
+		healthLabel = (Label)GetNode("Health");
 		
 		ground = (PackedScene)ResourceLoader.Load("res://scenes/ground.tscn");
 		wall = (PackedScene)ResourceLoader.Load("res://scenes/wall.tscn");
@@ -67,7 +71,7 @@ public class main : Node2D
 				var index = level[y][x];
 				var pos = GetPosition(x, y);
 				
-				Sprite instance = null;
+				Node2D instance = null;
 				Sprite tower = null;
 				
 				switch(index)
@@ -87,7 +91,7 @@ public class main : Node2D
 						break;
 						
 					case 3:
-						instance = (Sprite)home.Instance();
+						instance = (Home)home.Instance();
 						homePos = new Position(x, y);
 						break;
 						
@@ -107,6 +111,9 @@ public class main : Node2D
 					AddChild(tower);
 				}
 			}
+			
+			SetCredits();
+			SetHealth();
 		}
 		
 		var movement = new[] 
@@ -131,6 +138,7 @@ public class main : Node2D
 			var pathFollower = new PathFollow2D { Loop = false, Rotate = false };
 			var alien = (Alien)alien1.Instance();
 			alien.Died += OnAlienDied;
+			alien.ReachedHome += OnAlienReachedHome;
 			pathFollower.AddChild(alien);
 			path2d.AddChild(pathFollower);
 			pathFollowers[i] = pathFollower;
@@ -139,21 +147,20 @@ public class main : Node2D
 	
 	public override void _Process(float delta)
 	{
-		now += delta / 20.0f;
-
-		for (int i = 0; i < NUM_FOLLOWERS; i++)
+		AlienMovement(delta);
+		TowerTargetting();
+		ChooseTower();
+	}
+	
+	private void ChooseTower()
+	{
+		if (Input.IsActionPressed("ui_choose"))
 		{
-			if (pathFollowers[i] == null)
-				continue;
-				
-			pathFollowers[i].UnitOffset = now - i * 0.06f;
-			if (pathFollowers[i].UnitOffset > 1.0f)
-			{
-				pathFollowers[i].QueueFree();
-				pathFollowers[i] = null;
-			}
 		}
-		
+	}
+	
+	private void TowerTargetting()
+	{
 		foreach(Tower1 tower in GetTree().GetNodesInGroup("tower"))
 		{
 			var towerPos = tower.Position;
@@ -173,6 +180,24 @@ public class main : Node2D
 		}
 	}
 	
+	private void AlienMovement(float delta)
+	{
+		now += delta / 20.0f;
+
+		for (int i = 0; i < NUM_FOLLOWERS; i++)
+		{
+			if (pathFollowers[i] == null)
+				continue;
+				
+			pathFollowers[i].UnitOffset = now - i * 0.06f;
+			if (pathFollowers[i].UnitOffset > 1.0f)
+			{
+				pathFollowers[i].QueueFree();
+				pathFollowers[i] = null;
+			}
+		}
+	}
+	
 	private Position GetPosition(int x, int y)
 	{
 		var pos = new Position(x * SPRITE_WIDTH + LEFT_MARGIN, y * SPRITE_HEIGHT + TOP_MARGIN);
@@ -182,6 +207,22 @@ public class main : Node2D
 	private void OnAlienDied(int score)
 	{
 		credits += score;
-		creditsLabel.Text = $"Credtis: {credits}";
+		SetCredits();
+	}
+	
+	private void OnAlienReachedHome()
+	{
+		health--;
+		SetHealth();
+	}
+	
+	private void SetCredits()
+	{
+		creditsLabel.Text = $"Credits: {credits}";
+	}
+	
+	private void SetHealth()
+	{
+		healthLabel.Text = $"Health: {health}";
 	}
 }

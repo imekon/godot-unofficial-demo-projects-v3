@@ -10,13 +10,17 @@ public class Alien : Area2D
 	public int Score = 5;
 	
 	public delegate void DiedDelegate(int score);
+	public delegate void ReachedHomeDelegate();
 	
 	public event DiedDelegate Died;
+	public event ReachedHomeDelegate ReachedHome;
 	
 	private CollisionShape2D collision;
+	private bool reachedHome;
 	
 	public Alien()
 	{
+		reachedHome = false;
 	}
 	
     public override void _Ready()
@@ -45,6 +49,15 @@ public class Alien : Area2D
 			{
 				Died?.Invoke(Score);
 				QueueFree();
+			}
+		}
+		
+		if (area is Home)
+		{
+			if (!reachedHome)
+			{
+				ReachedHome?.Invoke();
+				reachedHome = true;
 			}
 		}
 	}
