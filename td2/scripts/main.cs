@@ -5,9 +5,10 @@ using System.Collections.Generic;
 
 public class main : Node2D
 {
+	private Levels levels;
 	private Path2D path2d;
 	private PathFollow2D[] pathFollowers;
-	private Label scoreLabel;
+	private Label creditsLabel;
 	
 	private PackedScene ground;
 	private PackedScene wall;
@@ -17,7 +18,7 @@ public class main : Node2D
 	private PackedScene tower1;
 	
 	private float now;
-	private int score;
+	private int credits;
 	
 	private const int SPRITE_WIDTH = 64;
 	private const int SPRITE_HEIGHT = 64;
@@ -32,27 +33,17 @@ public class main : Node2D
 	public main()
 	{
 		now = 0.0f;
-		score = 0;
+		credits = 0;
+		
+		levels = new Levels();
 	}
 	
     public override void _Ready()
     {
-		var level = new List<List<int>>
-		{
-			new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
-			new List<int> { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
-			new List<int> { 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1 },
-			new List<int> { 1, 0, 1, 1, 0, 1, 0, 4, 1, 0, 0, 1 },
-			new List<int> { 2, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 3 },
-			new List<int> { 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1 },
-			new List<int> { 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 },
-			new List<int> { 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 },
-			new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
-		};
+		var level = levels.GetLevel(0);
 		
 		path2d = (Path2D)GetNode("Path2D");
-		scoreLabel = (Label)GetNode("Score");
+		creditsLabel = (Label)GetNode("Credits");
 		
 		ground = (PackedScene)ResourceLoader.Load("res://scenes/ground.tscn");
 		wall = (PackedScene)ResourceLoader.Load("res://scenes/wall.tscn");
@@ -138,8 +129,8 @@ public class main : Node2D
 		for (int i = 0; i < NUM_FOLLOWERS; i++)
 		{
 			var pathFollower = new PathFollow2D { Loop = false, Rotate = false };
-			var alien = alien1.Instance();
-			alien.Connect("Died", this, "OnAlienDied");
+			var alien = (Alien)alien1.Instance();
+			alien.Died += OnAlienDied;
 			pathFollower.AddChild(alien);
 			path2d.AddChild(pathFollower);
 			pathFollowers[i] = pathFollower;
@@ -188,9 +179,9 @@ public class main : Node2D
 		return pos;
 	}
 	
-	private void OnAlienDied()
+	private void OnAlienDied(int score)
 	{
-		score += 30;
-		scoreLabel.Text = $"Score: {score}";
+		credits += score;
+		creditsLabel.Text = $"Credtis: {credits}";
 	}
 }
