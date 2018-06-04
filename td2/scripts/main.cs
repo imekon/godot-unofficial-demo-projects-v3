@@ -164,13 +164,32 @@ public class main : Node2D
 			
 			Tower found = null;
 			
-			foreach(var tower in GetTree().GetNodesInGroup("tower"))
+			foreach(Tower tower in GetTree().GetNodesInGroup("tower"))
 			{
 				if (tower.X == x && tower.Y == y)
 				{
 					found = tower;
 					break;
 				}
+			}
+			
+			if (found == null)
+			{
+				var tower = (Tower)tower1.Instance();
+				// Check cost
+				// TODO: check it doesn't block the aliens!
+				if (credits - tower.Cost > 0)
+				{
+					tower.X = x;
+					tower.Y = y;
+					var pos = GetPosition(x, y);
+					tower.Position = new Vector2(pos.X, pos.Y);
+					AddChild(tower);
+					credits -= tower.Cost;
+					SetCredits();
+				}
+				else
+					tower.Free();
 			}
 		}
 	}
