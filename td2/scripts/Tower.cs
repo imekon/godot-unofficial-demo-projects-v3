@@ -6,7 +6,7 @@ public class Tower : Sprite
 	private PackedScene bullet;
 	private int lastFired;
 	
-	private const int rateOfFire = 250;
+	private const int rateOfFire = 350;
 	
 	[Export]
 	public int Range = 100;

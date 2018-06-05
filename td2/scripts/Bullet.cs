@@ -3,6 +3,9 @@ using System;
 
 public class Bullet : Area2D
 {
+	[Export]
+	public int Damage = 20;
+	
 	public Vector2 Direction = new Vector2(0, 0);
 	
 	private const int speed = 5;

@@ -1,6 +1,7 @@
 builds/
 screenshots/
 .import/
+td2/.mono/
 
 *.dll
 *.exp

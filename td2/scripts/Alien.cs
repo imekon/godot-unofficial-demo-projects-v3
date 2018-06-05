@@ -9,6 +9,9 @@ public class Alien : Area2D
 	[Export]
 	public int Score = 5;
 	
+	[Export]
+	public float Shield = 1;
+	
 	public delegate void DiedDelegate(int score);
 	public delegate void ReachedHomeDelegate();
 	
@@ -34,17 +37,19 @@ public class Alien : Area2D
 	{
 		DrawRect(new Rect2(-20, -30, 40 * Health / 100, 6), new Color(255, 0, 0), true);
 	}
-
-	private void _onAlien1Entered(Godot.Object area)
+	
+	private void OnAlienAreaEntered(Godot.Object area)
 	{
 	    if (area is Alien)
 			return;
 			
 		if (area is Bullet)
 		{
-			Health -= 30;
+			var bullet = area as Bullet;
+			
+			Health -= (int)(bullet.Damage / Shield);
 			Update();
-			((Bullet)area).QueueFree();
+			bullet.QueueFree();
 			if (Health <= 0)
 			{
 				Died?.Invoke(Score);

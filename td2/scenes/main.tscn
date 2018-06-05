@@ -26,12 +26,13 @@ use_filter = false
 font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
 [node name="Path2D" type="Path2D" parent="." index="0"]
 
+self_modulate = Color( 0.5, 0.6, 1, 0.7 )
 curve = SubResource( 1 )
 _sections_unfolded = [ "Visibility" ]
 
@@ -80,5 +81,14 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
+
+[node name="Timer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 35.0
+one_shot = true
+autostart = false
+
+[connection signal="timeout" from="Timer" to="." method="OnTimeout"]
 
 
