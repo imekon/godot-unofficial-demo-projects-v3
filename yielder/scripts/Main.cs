@@ -15,9 +15,9 @@ public class Main : Node
 
     public override void _Ready()
     {
-		redScene = (PackedScene)ResourceLoader.Load("res://scenes/red.tscn");
-		greenScene = (PackedScene)ResourceLoader.Load("res://scenes/green.tscn");
-		blueScene = (PackedScene)ResourceLoader.Load("res://scenes/blue.tscn");
+		redScene = (PackedScene)ResourceLoader.Load("res://scenes/Red.tscn");
+		greenScene = (PackedScene)ResourceLoader.Load("res://scenes/Green.tscn");
+		blueScene = (PackedScene)ResourceLoader.Load("res://scenes/Blue.tscn");
 		
 		red = (Sprite)redScene.Instance();
 		green = (Sprite)greenScene.Instance();

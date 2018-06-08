@@ -24,7 +24,7 @@ public class Tower : Sprite
 	
     public override void _Ready()
     {
-		bullet = (PackedScene)ResourceLoader.Load("res://scenes/bullet.tscn");
+		bullet = (PackedScene)ResourceLoader.Load("res://scenes/Bullet.tscn");
     }
 
 	public void FireAtAlien(Vector2 vector)
