@@ -1,8 +1,9 @@
 builds/
 screenshots/
 .import/
-td2/.mono/
+.mono/
 
+*.import
 *.dll
 *.exp
 *.lib
@@ -10,3 +11,6 @@ td2/.mono/
 *.pdb
 *.cache
 *.*~
+/td2/.mono/*
+/td2/*.import
+/td2/images/*.import

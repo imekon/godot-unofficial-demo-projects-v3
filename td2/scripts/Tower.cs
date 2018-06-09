@@ -12,7 +12,7 @@ public class Tower : Sprite
 	public int Range = 100;
 	
 	[Export]
-	public int Cost = 10;
+	public int Cost = 15;
 	
 	public int X;
 	public int Y;

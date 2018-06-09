@@ -89,6 +89,4 @@ wait_time = 35.0
 one_shot = true
 autostart = false
 
-[connection signal="timeout" from="Timer" to="." method="OnTimeout"]
-
 

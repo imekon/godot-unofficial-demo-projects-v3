@@ -22,6 +22,7 @@ public class main : Node2D
 	private Levels levels;
 	private List<List<int>> level;
 	private float now;
+	private float alienSpeed;
 	private int credits;
 	private int health;
 	
@@ -46,6 +47,7 @@ public class main : Node2D
 	public main()
 	{
 		now = 0.0f;
+		alienSpeed = 20.0f;
 		credits = 30;
 		health = 10;
 		
@@ -148,14 +150,23 @@ public class main : Node2D
 
 		pathFollowers = new PathFollow2D[NUM_FOLLOWERS];
 		
+		GenerateAliens();
+	}
+	
+	private async void GenerateAliens()
+	{
 		GenerateAlien1();
 		
 		timer.Start();
+		await ToSignal(timer, "timeout");
+		
+		GenerateAlien2();
 	}
 	
 	private void GenerateAlien1()
 	{
 		now = 0;
+		alienSpeed = 20.0f;
 		
 		for (int i = 0; i < NUM_FOLLOWERS; i++)
 		{
@@ -172,6 +183,7 @@ public class main : Node2D
 	private void GenerateAlien2()
 	{
 		now = 0;
+		alienSpeed = 18.0f;
 		
 		for (int i = 0; i < NUM_FOLLOWERS; i++)
 		{
@@ -192,6 +204,45 @@ public class main : Node2D
 		ChooseTower();
 	}
 	
+	private void AlienMovement(float delta)
+	{
+		now += delta / alienSpeed;
+
+		for (int i = 0; i < NUM_FOLLOWERS; i++)
+		{
+			if (pathFollowers[i] == null)
+				continue;
+				
+			pathFollowers[i].UnitOffset = now - i * 0.06f;
+			if (pathFollowers[i].UnitOffset > 1.0f)
+			{
+				pathFollowers[i].QueueFree();
+				pathFollowers[i] = null;
+			}
+		}
+	}
+	
+	private void TowerTargetting()
+	{
+		foreach(Tower tower in GetTree().GetNodesInGroup("tower"))
+		{
+			var towerPos = tower.Position;
+			
+			foreach(Alien alien in GetTree().GetNodesInGroup("alien"))
+			{
+				var alienPos = alien.GlobalPosition;
+				
+				var distance = towerPos.DistanceTo(alienPos);
+				if (distance < tower.Range)
+				{
+					var vector = alienPos - towerPos;
+					tower.FireAtAlien(vector);
+					tower.LookAt(alienPos);
+				}
+			}
+		}
+	}
+
 	private void ChooseTower()
 	{
 		if (Input.IsActionPressed("ui_choose"))
@@ -207,7 +258,7 @@ public class main : Node2D
 				var tower = (Tower)tower1.Instance();
 				// Check cost
 				// TODO: check it doesn't block the aliens!
-				if (credits - tower.Cost > 0)
+				if (credits - tower.Cost >= 0)
 				{
 					tower.X = x;
 					tower.Y = y;
@@ -263,45 +314,6 @@ public class main : Node2D
 		return null;
 	}
 	
-	private void TowerTargetting()
-	{
-		foreach(Tower tower in GetTree().GetNodesInGroup("tower"))
-		{
-			var towerPos = tower.Position;
-			
-			foreach(Alien alien in GetTree().GetNodesInGroup("alien"))
-			{
-				var alienPos = alien.GlobalPosition;
-				
-				var distance = towerPos.DistanceTo(alienPos);
-				if (distance < tower.Range)
-				{
-					var vector = alienPos - towerPos;
-					tower.FireAtAlien(vector);
-					tower.LookAt(alienPos);
-				}
-			}
-		}
-	}
-	
-	private void AlienMovement(float delta)
-	{
-		now += delta / 20.0f;
-
-		for (int i = 0; i < NUM_FOLLOWERS; i++)
-		{
-			if (pathFollowers[i] == null)
-				continue;
-				
-			pathFollowers[i].UnitOffset = now - i * 0.06f;
-			if (pathFollowers[i].UnitOffset > 1.0f)
-			{
-				pathFollowers[i].QueueFree();
-				pathFollowers[i] = null;
-			}
-		}
-	}
-	
 	private Vector2 GetPosition(int x, int y)
 	{
 		var pos = new Vector2(x * SPRITE_WIDTH + LEFT_MARGIN, y * SPRITE_HEIGHT + TOP_MARGIN);
@@ -335,10 +347,5 @@ public class main : Node2D
 	private void SetHealth()
 	{
 		healthLabel.Text = $"Health: {health}";
-	}
-
-	private void OnTimeout()
-	{
-		GenerateAlien2();
 	}
 }
