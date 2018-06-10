@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/main.cs" type="Script" id=1]
 [ext_resource path="res://fonts/MODES___.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://images/tower1.png" type="Texture" id=3]
+[ext_resource path="res://images/garbage.png" type="Texture" id=4]
+[ext_resource path="res://images/upgrade.png" type="Texture" id=5]
 
 [sub_resource type="Curve2D" id=1]
 
@@ -26,7 +29,7 @@ use_filter = false
 font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 
 resource_name = "Next Wave"
 length = 5.0
@@ -57,7 +60,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 
 size = 48
 use_mipmaps = false
@@ -128,14 +131,89 @@ wait_time = 35.0
 one_shot = true
 autostart = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+[node name="Tower1Button" type="Button" parent="." index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 570.0
+margin_top = 720.0
+margin_right = 646.0
+margin_bottom = 790.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+icon = ExtResource( 3 )
+flat = false
+align = 1
+
+[node name="DeleteButton" type="Button" parent="." index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 410.0
+margin_top = 720.0
+margin_right = 486.0
+margin_bottom = 790.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+icon = ExtResource( 4 )
+flat = false
+align = 1
+
+[node name="UpgradeButton" type="Button" parent="." index="6"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 490.0
+margin_top = 720.0
+margin_right = 566.0
+margin_bottom = 790.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+icon = ExtResource( 5 )
+flat = false
+align = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 
 root_node = NodePath("..")
 autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-"anims/Next Wave" = SubResource( 5 )
+"anims/Next Wave" = SubResource( 4 )
 blend_times = [  ]
 
 [node name="NextWave" type="Label" parent="AnimationPlayer" index="0"]
@@ -155,7 +233,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "Next Wave!"
 percent_visible = 1.0
 lines_skipped = 0
