@@ -16,6 +16,12 @@ public class Bullet : Area2D
 
     public override void _Process(float delta)
     {
+		var size = GetViewport().Size;
+		
 		Position = Position + Direction * delta * speed;
+		
+		if (Position.x < 0 || Position.x > size.x ||
+			Position.y < 0 || Position.y > size.y)
+			QueueFree();
     }
 }

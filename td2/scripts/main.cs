@@ -18,6 +18,7 @@ public class main : Node2D
 	private PackedScene enemy;
 	private PackedScene alien1;
 	private PackedScene alien2;
+	private PackedScene alien3;
 	private PackedScene tower1;
 	
 	private Levels levels;
@@ -71,6 +72,7 @@ public class main : Node2D
 		enemy = (PackedScene)ResourceLoader.Load("res://scenes/enemy.tscn");
 		alien1 = (PackedScene)ResourceLoader.Load("res://scenes/Alien1.tscn");
 		alien2 = (PackedScene)ResourceLoader.Load("res://scenes/Alien2.tscn");
+		alien3 = (PackedScene)ResourceLoader.Load("res://scenes/Alien3.tscn");
 		tower1 = (PackedScene)ResourceLoader.Load("res://scenes/Tower1.tscn");
 
 		var rows = level.Count;
@@ -214,7 +216,7 @@ public class main : Node2D
 		for (int i = 0; i < NUM_FOLLOWERS; i++)
 		{
 			var pathFollower = new PathFollow2D { Loop = false, Rotate = false };
-			var alien = (Alien)alien2.Instance();
+			var alien = (Alien)alien3.Instance();
 			alien.Died += OnAlienDied;
 			alien.ReachedHome += OnAlienReachedHome;
 			pathFollower.AddChild(alien);
