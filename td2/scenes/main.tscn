@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/main.cs" type="Script" id=1]
 [ext_resource path="res://fonts/MODES___.TTF" type="DynamicFontData" id=2]
@@ -25,6 +25,37 @@ use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
+
+[sub_resource type="Animation" id=5]
+
+resource_name = "Next Wave"
+length = 5.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimationPlayer/NextWave:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 30, 330 ), Vector2( 580, 330 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimationPlayer/NextWave:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 4.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="DynamicFont" id=4]
 
@@ -97,26 +128,27 @@ wait_time = 35.0
 one_shot = true
 autostart = false
 
-[node name="Tween" type="Tween" parent="." index="4"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 
-repeat = false
+root_node = NodePath("..")
+autoplay = ""
 playback_process_mode = 1
+playback_default_blend_time = 0.0
 playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
+"anims/Next Wave" = SubResource( 5 )
+blend_times = [  ]
 
-[node name="NextWave" type="Label" parent="." index="5"]
+[node name="NextWave" type="Label" parent="AnimationPlayer" index="0"]
 
-visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 600.0
-margin_top = 320.0
-margin_right = 890.0
-margin_bottom = 369.0
+margin_left = 30.0
+margin_top = 330.0
+margin_right = 320.0
+margin_bottom = 379.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -129,7 +161,5 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Rect", "Visibility", "custom_fonts" ]
-
-[connection signal="tween_completed" from="Tween" to="." method="OnNextWaveCompleted"]
 
 

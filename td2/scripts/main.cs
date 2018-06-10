@@ -10,8 +10,7 @@ public class main : Node2D
 	private Label creditsLabel;
 	private Label healthLabel;
 	private Timer timer;
-	private Tween tween;
-	private Label nextWave;
+	private AnimationPlayer animationNextWave;
 	
 	private PackedScene ground;
 	private PackedScene wall;
@@ -64,8 +63,7 @@ public class main : Node2D
 		creditsLabel = (Label)GetNode("Credits");
 		healthLabel = (Label)GetNode("Health");
 		timer = (Timer)GetNode("Timer");
-		tween = (Tween)GetNode("Tween");
-		nextWave = (Label)GetNode("NextWave");
+		animationNextWave = (AnimationPlayer)GetNode("AnimationPlayer");
 		
 		ground = (PackedScene)ResourceLoader.Load("res://scenes/ground.tscn");
 		wall = (PackedScene)ResourceLoader.Load("res://scenes/wall.tscn");
@@ -227,8 +225,7 @@ public class main : Node2D
 	
 	private void DisplayNextWaveMessage()
 	{
-		tween.InterpolateMethod(this, "OnNextWaveMessage", 0, 1, 5, Godot.Tween.TransitionType.Quad, Godot.Tween.EaseType.Out);
-		tween.Start();
+		animationNextWave.Play("Next Wave");
 	}
 	
 	public override void _Process(float delta)
@@ -306,17 +303,6 @@ public class main : Node2D
 					tower.Free();
 			}
 		}
-	}
-	
-	private void OnNextWaveMessage(float value)
-	{
-		nextWave.Visible = true;
-		nextWave.RectPosition = new Vector2(LEFT_MARGIN + 400 * value, 300);	
-	}
-	
-	private void OnNextWaveCompleted(Godot.Object obj, NodePath key)
-	{
-	    nextWave.Visible = false;
 	}
 	
 	private GridStatus GetGridContents(int x, int y)
