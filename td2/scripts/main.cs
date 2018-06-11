@@ -424,7 +424,16 @@ public class main : Node2D
 		credits -= tower.Cost;
 		SetCredits();
 	}
+
+	private void OnDeleteTower()
+	{
+		var tower = GetTowerAtGrid((int)cursorGrid.x, (int)cursorGrid.y);
+		if (tower != null)
+			tower.QueueFree();
+	}
 }
+
+
 
 
 

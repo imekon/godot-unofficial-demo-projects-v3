@@ -242,4 +242,6 @@ _sections_unfolded = [ "Rect", "Visibility", "custom_fonts" ]
 
 [connection signal="pressed" from="Tower1Button" to="." method="OnTower1Button"]
 
+[connection signal="pressed" from="DeleteButton" to="." method="OnDeleteTower"]
+
 
