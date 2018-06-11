@@ -9,13 +9,19 @@ public class main : Node2D
 	private PathFollow2D[] pathFollowers;
 	private Label creditsLabel;
 	private Label healthLabel;
+	private Sprite cursor;
 	private Timer timer;
 	private AnimationPlayer animationNextWave;
+	
+	private Button deleteButton;
+	private Button upgradeButton;
+	private Button tower1Button;
 	
 	private PackedScene ground;
 	private PackedScene wall;
 	private PackedScene home;
 	private PackedScene enemy;
+	private PackedScene cursorScene;
 	private PackedScene alien1;
 	private PackedScene alien2;
 	private PackedScene alien3;
@@ -25,8 +31,11 @@ public class main : Node2D
 	private List<List<int>> level;
 	private float now;
 	private float alienSpeed;
+	private int columns;
+	private int rows;
 	private int credits;
 	private int health;
+	private Vector2 cursorGrid;
 	
 	private const int SPRITE_WIDTH = 64;
 	private const int SPRITE_HEIGHT = 64;
@@ -66,17 +75,32 @@ public class main : Node2D
 		timer = (Timer)GetNode("Timer");
 		animationNextWave = (AnimationPlayer)GetNode("AnimationPlayer");
 		
+		deleteButton = (Button)GetNode("DeleteButton");
+		upgradeButton = (Button)GetNode("UpgradeButton");
+		tower1Button = (Button)GetNode("Tower1Button");
+		
+		deleteButton.Disabled = true;
+		upgradeButton.Disabled = true;
+		tower1Button.Disabled = true;
+		
 		ground = (PackedScene)ResourceLoader.Load("res://scenes/ground.tscn");
 		wall = (PackedScene)ResourceLoader.Load("res://scenes/wall.tscn");
 		home = (PackedScene)ResourceLoader.Load("res://scenes/home.tscn");
 		enemy = (PackedScene)ResourceLoader.Load("res://scenes/enemy.tscn");
+		cursorScene = (PackedScene)ResourceLoader.Load("res://scenes/Cursor.tscn");
 		alien1 = (PackedScene)ResourceLoader.Load("res://scenes/Alien1.tscn");
 		alien2 = (PackedScene)ResourceLoader.Load("res://scenes/Alien2.tscn");
 		alien3 = (PackedScene)ResourceLoader.Load("res://scenes/Alien3.tscn");
 		tower1 = (PackedScene)ResourceLoader.Load("res://scenes/Tower1.tscn");
+		
+		cursor = (Sprite)cursorScene.Instance();
+		cursor.Position = GetPosition(0, 0);
+		AddChild(cursor);
+		
+		cursorGrid = new Vector2(0, 0);
 
-		var rows = level.Count;
-		var columns = level[0].Count;
+		rows = level.Count;
+		columns = level[0].Count;
 		
 		Position enemyPos = new Position(0, 0);
 		Position homePos = new Position(0, 0);
@@ -283,26 +307,33 @@ public class main : Node2D
 			var position = GetViewport().GetMousePosition();
 			var x = (int)(position.x + SPRITE_WIDTH2 - LEFT_MARGIN) / SPRITE_WIDTH;
 			var y = (int)(position.y + SPRITE_HEIGHT2 - TOP_MARGIN) / SPRITE_HEIGHT;
+						
+			if (x < 0 || x >= columns || y < 0 || y >= rows)
+				return;
 			
-			Tower found = GetTowerAtGrid(x, y);
+			cursor.Position = GetPosition(x, y);
+			var contents = GetGridContents(x, y);
+			cursorGrid = new Vector2(x, y);
 			
-			if (found == null)
+			switch(contents)
 			{
-				var tower = (Tower)tower1.Instance();
-				// Check cost
-				// TODO: check it doesn't block the aliens!
-				if (credits - tower.Cost >= 0)
-				{
-					tower.X = x;
-					tower.Y = y;
-					var pos = GetPosition(x, y);
-					tower.Position = pos;
-					AddChild(tower);
-					credits -= tower.Cost;
-					SetCredits();
-				}
-				else
-					tower.Free();
+				case GridStatus.Empty:
+					deleteButton.Disabled = true;
+					upgradeButton.Disabled = true;
+					tower1Button.Disabled = credits < 15;
+					break;
+					
+				case GridStatus.Wall:
+					deleteButton.Disabled = true;
+					upgradeButton.Disabled = true;
+					tower1Button.Disabled = true;
+					break;
+					
+				case GridStatus.Tower:
+					deleteButton.Disabled = false;
+					upgradeButton.Disabled = false;
+					tower1Button.Disabled = true;
+					break;
 			}
 		}
 	}
@@ -381,6 +412,20 @@ public class main : Node2D
 	{
 		healthLabel.Text = $"Health: {health}";
 	}
+
+	private void OnTower1Button()
+	{
+		var tower = (Tower)tower1.Instance();
+		tower.X = (int)cursorGrid.x;
+		tower.Y = (int)cursorGrid.y;
+		var pos = GetPosition((int)cursorGrid.x, (int)cursorGrid.y);
+		tower.Position = pos;
+		AddChild(tower);
+		credits -= tower.Cost;
+		SetCredits();
+	}
 }
+
+
 
 

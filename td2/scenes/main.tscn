@@ -240,4 +240,6 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Rect", "Visibility", "custom_fonts" ]
 
+[connection signal="pressed" from="Tower1Button" to="." method="OnTower1Button"]
+
 
