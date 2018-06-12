@@ -290,7 +290,8 @@ public class main : Node2D
 				var alienPos = alien.GlobalPosition;
 				
 				var distance = towerPos.DistanceTo(alienPos);
-				if (distance < tower.Range)
+				var cost = TowerCosts.GetTowerCost(tower.Type, tower.Level);
+				if (distance < cost.Range)
 				{
 					var vector = alienPos - towerPos;
 					tower.FireAtAlien(vector);
@@ -421,7 +422,8 @@ public class main : Node2D
 		var pos = GetPosition((int)cursorGrid.x, (int)cursorGrid.y);
 		tower.Position = pos;
 		AddChild(tower);
-		credits -= tower.Cost;
+		var cost = TowerCosts.GetTowerCost(tower.Type, tower.Level);
+		credits -= cost.Cost;
 		SetCredits();
 	}
 

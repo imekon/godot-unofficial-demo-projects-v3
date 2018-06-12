@@ -64,6 +64,7 @@
     <Compile Include="scripts\PathFinder.Debug.cs" />
     <Compile Include="scripts\Position.cs" />
     <Compile Include="scripts\Tower.cs" />
+    <Compile Include="scripts\TowerCosts.cs" />
     <Compile Include="scripts\Welcome.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

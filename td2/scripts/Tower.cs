@@ -9,11 +9,11 @@ public class Tower : Sprite
 	private const int rateOfFire = 350;
 	
 	[Export]
-	public int Range = 100;
+	public int Type = 1;
 	
 	[Export]
-	public int Cost = 15;
-	
+	public int Level = 1;
+		
 	public int X;
 	public int Y;
 	
