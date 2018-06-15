@@ -234,7 +234,7 @@ select_mode = 0
 allow_reselect = false
 icon_mode = 1
 fixed_icon_size = Vector2( 0, 0 )
-_sections_unfolded = [ "custom_fonts" ]
+_sections_unfolded = [ "Columns", "Grow Direction", "custom_fonts" ]
 
 [node name="GoodsList" type="ItemList" parent="Panel" index="7"]
 

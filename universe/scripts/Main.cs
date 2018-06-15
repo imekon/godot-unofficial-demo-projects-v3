@@ -21,9 +21,7 @@ public class Main : PanelContainer
 		greenTexture = (Texture)ResourceLoader.Load("res://images/green.png");
 		blueTexture = (Texture)ResourceLoader.Load("res://images/blue.png");
 		
-		cargoList.AddItem("Red         100", redTexture, true);
-		cargoList.AddItem("Green        70", greenTexture, true);
-		cargoList.AddItem("Blue         90", blueTexture, true);
+		cargoList.AddItem("Red         5       10", redTexture, true);
     }
 
 	private void OnPlanet()
