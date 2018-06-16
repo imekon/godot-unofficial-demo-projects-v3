@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/main.cs" type="Script" id=1]
 [ext_resource path="res://fonts/MODES___.TTF" type="DynamicFontData" id=2]
 [ext_resource path="res://images/tower1.png" type="Texture" id=3]
-[ext_resource path="res://images/garbage.png" type="Texture" id=4]
-[ext_resource path="res://images/upgrade.png" type="Texture" id=5]
+[ext_resource path="res://images/tower2.png" type="Texture" id=4]
+[ext_resource path="res://images/garbage.png" type="Texture" id=5]
+[ext_resource path="res://images/upgrade.png" type="Texture" id=6]
 
 [sub_resource type="Curve2D" id=1]
 
@@ -156,7 +157,32 @@ icon = ExtResource( 3 )
 flat = false
 align = 1
 
-[node name="DeleteButton" type="Button" parent="." index="5"]
+[node name="Tower2Button" type="Button" parent="." index="5"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 650.0
+margin_top = 720.0
+margin_right = 726.0
+margin_bottom = 790.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+icon = ExtResource( 4 )
+flat = false
+align = 1
+
+[node name="DeleteButton" type="Button" parent="." index="6"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -177,11 +203,11 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-icon = ExtResource( 4 )
+icon = ExtResource( 5 )
 flat = false
 align = 1
 
-[node name="UpgradeButton" type="Button" parent="." index="6"]
+[node name="UpgradeButton" type="Button" parent="." index="7"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -202,11 +228,11 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-icon = ExtResource( 5 )
+icon = ExtResource( 6 )
 flat = false
 align = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
 
 root_node = NodePath("..")
 autoplay = ""
@@ -241,6 +267,8 @@ max_lines_visible = -1
 _sections_unfolded = [ "Rect", "Visibility", "custom_fonts" ]
 
 [connection signal="pressed" from="Tower1Button" to="." method="OnTower1Button"]
+
+[connection signal="pressed" from="Tower2Button" to="." method="OnTower2Pressed"]
 
 [connection signal="pressed" from="DeleteButton" to="." method="OnDeleteTower"]
 

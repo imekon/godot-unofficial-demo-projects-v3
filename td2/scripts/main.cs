@@ -16,6 +16,7 @@ public class main : Node2D
 	private Button deleteButton;
 	private Button upgradeButton;
 	private Button tower1Button;
+	private Button tower2Button;
 	
 	private PackedScene ground;
 	private PackedScene wall;
@@ -26,6 +27,7 @@ public class main : Node2D
 	private PackedScene alien2;
 	private PackedScene alien3;
 	private PackedScene tower1;
+	private PackedScene tower2;
 	
 	private Levels levels;
 	private List<List<int>> level;
@@ -78,10 +80,12 @@ public class main : Node2D
 		deleteButton = (Button)GetNode("DeleteButton");
 		upgradeButton = (Button)GetNode("UpgradeButton");
 		tower1Button = (Button)GetNode("Tower1Button");
+		tower2Button = (Button)GetNode("Tower2Button");
 		
 		deleteButton.Disabled = true;
 		upgradeButton.Disabled = true;
 		tower1Button.Disabled = true;
+		tower2Button.Disabled = true;
 		
 		ground = (PackedScene)ResourceLoader.Load("res://scenes/ground.tscn");
 		wall = (PackedScene)ResourceLoader.Load("res://scenes/wall.tscn");
@@ -92,6 +96,7 @@ public class main : Node2D
 		alien2 = (PackedScene)ResourceLoader.Load("res://scenes/Alien2.tscn");
 		alien3 = (PackedScene)ResourceLoader.Load("res://scenes/Alien3.tscn");
 		tower1 = (PackedScene)ResourceLoader.Load("res://scenes/Tower1.tscn");
+		tower2 = (PackedScene)ResourceLoader.Load("res://scenes/Tower2.tscn");
 		
 		cursor = (Sprite)cursorScene.Instance();
 		cursor.Position = GetPosition(0, 0);
@@ -323,18 +328,21 @@ public class main : Node2D
 					deleteButton.Disabled = true;
 					upgradeButton.Disabled = true;
 					tower1Button.Disabled = credits < 15;
+					tower2Button.Disabled = credits < 30;
 					break;
 					
 				case GridStatus.Wall:
 					deleteButton.Disabled = true;
 					upgradeButton.Disabled = true;
 					tower1Button.Disabled = true;
+					tower2Button.Disabled = true;
 					break;
 					
 				case GridStatus.Tower:
 					deleteButton.Disabled = false;
 					upgradeButton.Disabled = false;
 					tower1Button.Disabled = true;
+					tower2Button.Disabled = true;
 					break;
 			}
 		}
@@ -418,6 +426,17 @@ public class main : Node2D
 	private void OnTower1Button()
 	{
 		var tower = (Tower)tower1.Instance();
+		CreateTower(tower);
+	}
+
+	private void OnTower2Pressed()
+	{
+		var tower = (Tower)tower2.Instance();
+		CreateTower(tower);
+	}
+	
+	private void CreateTower(Tower tower)
+	{
 		tower.X = (int)cursorGrid.x;
 		tower.Y = (int)cursorGrid.y;
 		var pos = GetPosition((int)cursorGrid.x, (int)cursorGrid.y);
@@ -435,6 +454,8 @@ public class main : Node2D
 			tower.QueueFree();
 	}
 }
+
+
 
 
 
