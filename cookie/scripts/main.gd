@@ -128,6 +128,13 @@ func processCellsAndSprites():
 			spritesDropping.append(dropping)
 		tweenDrop.interpolate_method(self, "droppingCallback", 0.0, levelClass.SpriteHeight, 0.7, Tween.TRANS_QUAD, Tween.EASE_IN)
 		tweenDrop.start()
+		
+		yield(tweenDrop, "tween_completed")
+		
+		theLevel.dropCells()
+		moveDroppingSprites()
+		theLevel.fillTopLine()
+		processCellsAndSprites()
 	else:	
 		if theLevel.fillTopLine():
 			processCellsAndSprites()
@@ -189,6 +196,20 @@ func swapCells():
 	lock = true
 	tweenSwap.interpolate_method(self, "swappingCallback", 0, 1, 0.7, Tween.TRANS_QUINT, Tween.EASE_OUT)
 	tweenSwap.start()
+	
+	yield(tweenSwap, "tween_completed")
+	
+	if firstClick == null:
+		return
+		
+	if nextClick == null:
+		return
+		
+	theLevel.swapCells(firstClick.row, firstClick.column, nextClick.row, nextClick.column)
+	swapSprites(firstClick.row, firstClick.column, nextClick.row, nextClick.column)
+	firstClick = null
+	nextClick = null
+	lock = false
 
 func droppingCallback(offset):
 	for dropping in spritesDropping:
@@ -211,22 +232,3 @@ func swapSprites(row1, column1, row2, column2):
 	var temp = sprites[row1][column1]
 	sprites[row1][column1] = sprites[row2][column2]
 	sprites[row2][column2] = temp
-	
-func _onTweenDropCompleted(object, key):
-	theLevel.dropCells()
-	moveDroppingSprites()
-	theLevel.fillTopLine()
-	processCellsAndSprites()
-		
-func _onTweenSwapCompleted(object, key):
-	if firstClick == null:
-		return
-		
-	if nextClick == null:
-		return
-		
-	theLevel.swapCells(firstClick.row, firstClick.column, nextClick.row, nextClick.column)
-	swapSprites(firstClick.row, firstClick.column, nextClick.row, nextClick.column)
-	firstClick = null
-	nextClick = null
-	lock = false

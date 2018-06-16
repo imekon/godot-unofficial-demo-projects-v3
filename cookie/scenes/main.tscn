@@ -66,8 +66,4 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Material", "Visibility", "custom_colors", "custom_fonts", "custom_styles" ]
 
-[connection signal="tween_completed" from="TweenDrop" to="." method="_onTweenDropCompleted"]
-
-[connection signal="tween_completed" from="TweenSwap" to="." method="_onTweenSwapCompleted"]
-
 
