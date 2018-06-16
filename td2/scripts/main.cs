@@ -296,6 +296,7 @@ public class main : Node2D
 					var vector = alienPos - towerPos;
 					tower.FireAtAlien(vector);
 					tower.LookAt(alienPos);
+					break;
 				}
 			}
 		}
