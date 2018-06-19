@@ -437,6 +437,7 @@ public class main : Node2D
 	
 	private void CreateTower(Tower tower)
 	{
+		//tower.Type = type;
 		tower.X = (int)cursorGrid.x;
 		tower.Y = (int)cursorGrid.y;
 		var pos = GetPosition((int)cursorGrid.x, (int)cursorGrid.y);

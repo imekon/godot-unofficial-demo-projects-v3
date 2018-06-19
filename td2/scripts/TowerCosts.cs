@@ -20,7 +20,8 @@ public static class TowerCosts
 	{
 		costs = new List<TowerCost>
 		{
-			new TowerCost() { Type = 1, Level = 1, Cost = 15, Range = 100, Upgrade = 20, Sell = 5 }
+			new TowerCost() { Type = 1, Level = 1, Cost = 15, Range = 100, Upgrade = 20, Sell = 5 },
+			new TowerCost() { Type = 2, Level = 1, Cost = 25, Range = 150, Upgrade = 50, Sell = 10 }
 		};
 	}
 	
