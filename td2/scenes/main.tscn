@@ -125,14 +125,37 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="Timer" type="Timer" parent="." index="3"]
+[node name="Wave" type="Label" parent="." index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 380.0
+margin_top = 20.0
+margin_right = 506.0
+margin_bottom = 45.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 3 )
+text = "Wave: 1"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Timer" type="Timer" parent="." index="4"]
 
 process_mode = 1
 wait_time = 35.0
 one_shot = true
 autostart = false
 
-[node name="Tower1Button" type="Button" parent="." index="4"]
+[node name="Tower1Button" type="Button" parent="." index="5"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -157,7 +180,7 @@ icon = ExtResource( 3 )
 flat = false
 align = 1
 
-[node name="Tower2Button" type="Button" parent="." index="5"]
+[node name="Tower2Button" type="Button" parent="." index="6"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -182,7 +205,7 @@ icon = ExtResource( 4 )
 flat = false
 align = 1
 
-[node name="DeleteButton" type="Button" parent="." index="6"]
+[node name="DeleteButton" type="Button" parent="." index="7"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -207,7 +230,7 @@ icon = ExtResource( 5 )
 flat = false
 align = 1
 
-[node name="UpgradeButton" type="Button" parent="." index="7"]
+[node name="UpgradeButton" type="Button" parent="." index="8"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -232,7 +255,7 @@ icon = ExtResource( 6 )
 flat = false
 align = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 
 root_node = NodePath("..")
 autoplay = ""

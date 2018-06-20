@@ -9,6 +9,7 @@ public class main : Node2D
 	private PathFollow2D[] pathFollowers;
 	private Label creditsLabel;
 	private Label healthLabel;
+	private Label waveLabel;
 	private Sprite cursor;
 	private Timer timer;
 	private AnimationPlayer animationNextWave;
@@ -37,6 +38,7 @@ public class main : Node2D
 	private int rows;
 	private int credits;
 	private int health;
+	private int wave;
 	private Vector2 cursorGrid;
 	
 	private const int SPRITE_WIDTH = 64;
@@ -63,6 +65,7 @@ public class main : Node2D
 		alienSpeed = 20.0f;
 		credits = 30;
 		health = 10;
+		wave = 1;
 		
 		levels = new Levels();
 	}
@@ -74,6 +77,7 @@ public class main : Node2D
 		path2d = (Path2D)GetNode("Path2D");
 		creditsLabel = (Label)GetNode("Credits");
 		healthLabel = (Label)GetNode("Health");
+		waveLabel = (Label)GetNode("Wave");
 		timer = (Timer)GetNode("Timer");
 		animationNextWave = (AnimationPlayer)GetNode("AnimationPlayer");
 		
@@ -257,6 +261,8 @@ public class main : Node2D
 	private void DisplayNextWaveMessage()
 	{
 		animationNextWave.Play("Next Wave");
+		wave++;
+		SetWave();
 	}
 	
 	public override void _Process(float delta)
@@ -264,6 +270,7 @@ public class main : Node2D
 		AlienMovement(delta);
 		TowerTargetting();
 		ChooseTower();
+		UpdateAtCursor();
 	}
 	
 	private void AlienMovement(float delta)
@@ -321,30 +328,35 @@ public class main : Node2D
 			cursor.Position = GetPosition(x, y);
 			var contents = GetGridContents(x, y);
 			cursorGrid = new Vector2(x, y);
-			
-			switch(contents)
-			{
-				case GridStatus.Empty:
-					deleteButton.Disabled = true;
-					upgradeButton.Disabled = true;
-					tower1Button.Disabled = credits < 15;
-					tower2Button.Disabled = credits < 30;
-					break;
-					
-				case GridStatus.Wall:
-					deleteButton.Disabled = true;
-					upgradeButton.Disabled = true;
-					tower1Button.Disabled = true;
-					tower2Button.Disabled = true;
-					break;
-					
-				case GridStatus.Tower:
-					deleteButton.Disabled = false;
-					upgradeButton.Disabled = false;
-					tower1Button.Disabled = true;
-					tower2Button.Disabled = true;
-					break;
-			}
+		}
+	}
+	
+	private void UpdateAtCursor()
+	{
+		var contents = GetGridContents((int)cursorGrid.x, (int)cursorGrid.y);
+
+		switch(contents)
+		{
+			case GridStatus.Empty:
+				deleteButton.Disabled = true;
+				upgradeButton.Disabled = true;
+				tower1Button.Disabled = credits < TowerCosts.GetTowerCost(1, 1).Cost;
+				tower2Button.Disabled = credits < TowerCosts.GetTowerCost(2, 1).Cost;
+				break;
+				
+			case GridStatus.Wall:
+				deleteButton.Disabled = true;
+				upgradeButton.Disabled = true;
+				tower1Button.Disabled = true;
+				tower2Button.Disabled = true;
+				break;
+				
+			case GridStatus.Tower:
+				deleteButton.Disabled = false;
+				upgradeButton.Disabled = false;
+				tower1Button.Disabled = true;
+				tower2Button.Disabled = true;
+				break;
 		}
 	}
 	
@@ -422,6 +434,11 @@ public class main : Node2D
 	{
 		healthLabel.Text = $"Health: {health}";
 	}
+	
+	private void SetWave()
+	{
+		waveLabel.Text = $"Wave: {wave}";
+	}
 
 	private void OnTower1Button()
 	{
@@ -455,11 +472,3 @@ public class main : Node2D
 			tower.QueueFree();
 	}
 }
-
-
-
-
-
-
-
-
