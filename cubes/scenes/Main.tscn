@@ -8,9 +8,30 @@
 position = Vector2( 513, 279 )
 script = ExtResource( 1 )
 
-[node name="Player" parent="." index="0" instance=ExtResource( 2 )]
+[node name="RigidBody2D" type="RigidBody2D" parent="." index="0"]
 
-[node name="Camera2D" type="Camera2D" parent="Player" index="0"]
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
+
+[node name="Player" parent="RigidBody2D" index="0" instance=ExtResource( 2 )]
+
+[node name="Camera2D" type="Camera2D" parent="RigidBody2D/Player" index="0"]
 
 anchor_mode = 1
 rotating = false
@@ -35,5 +56,10 @@ editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Smoothing" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D" index="1"]
+
+build_mode = 0
+polygon = PoolVector2Array( -13.7083, -13.6688, 14.1175, 0.362976, -13.7083, 12.2543 )
 
 
