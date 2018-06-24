@@ -20,7 +20,7 @@ public class Main : Node2D
 		{
 			var x = random.Next(-600, 600);
 			var y = random.Next(-500, 500);
-			var alien = (Node2D)cube.Instance();
+			var alien = (RigidBody2D)cube.Instance();
 			alien.Position = new Vector2(x, y);
 			AddChild(alien);
 		}
