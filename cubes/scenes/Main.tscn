@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/Main.cs" type="Script" id=1]
 [ext_resource path="res://scenes/PlayerExpanded.tscn" type="PackedScene" id=2]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" index="0"]
 
 position = Vector2( 513, 279 )
 script = ExtResource( 1 )
