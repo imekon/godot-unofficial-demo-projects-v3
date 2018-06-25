@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cubes", "Cubes.csproj", "{3CAD8215-8016-404E-9A78-4B8EEE802EEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cubes", "Cubes.csproj", "{83B9CBCC-A674-45FB-9F5C-13FFD99C269A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	Tools|Any CPU = Tools|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3CAD8215-8016-404E-9A78-4B8EEE802EEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CAD8215-8016-404E-9A78-4B8EEE802EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CAD8215-8016-404E-9A78-4B8EEE802EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CAD8215-8016-404E-9A78-4B8EEE802EEF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CAD8215-8016-404E-9A78-4B8EEE802EEF}.Tools|Any CPU.ActiveCfg = Tools|Any CPU
-		{3CAD8215-8016-404E-9A78-4B8EEE802EEF}.Tools|Any CPU.Build.0 = Tools|Any CPU
+		{83B9CBCC-A674-45FB-9F5C-13FFD99C269A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83B9CBCC-A674-45FB-9F5C-13FFD99C269A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83B9CBCC-A674-45FB-9F5C-13FFD99C269A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83B9CBCC-A674-45FB-9F5C-13FFD99C269A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83B9CBCC-A674-45FB-9F5C-13FFD99C269A}.Tools|Any CPU.ActiveCfg = Tools|Any CPU
+		{83B9CBCC-A674-45FB-9F5C-13FFD99C269A}.Tools|Any CPU.Build.0 = Tools|Any CPU
 	EndGlobalSection
 EndGlobal

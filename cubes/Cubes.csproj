@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3CAD8215-8016-404E-9A78-4B8EEE802EEF}</ProjectGuid>
+    <ProjectGuid>{83B9CBCC-A674-45FB-9F5C-13FFD99C269A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <OutputPath>.mono\temp\bin\$(Configuration)</OutputPath>
     <RootNamespace>Cubes</RootNamespace>
@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="scripts\Main.cs" />
-    <Compile Include="scripts\PlayerExpanded.cs" />
+    <Compile Include="scripts\Player.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
