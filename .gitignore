@@ -11,10 +11,11 @@ screenshots/
 *.pdb
 *.cache
 *.*~
-/cookie/*.import
-/cookie/Grid.atlas/*.import
-/cookie/images/*.import
-/td2/.mono/*
-/td2/*.import
-/td2/images/*.import
+cookie/*.import
+cookie/Grid.atlas/*.import
+cookie/Grid.atlas/*.png.import
+cookie/images/*.import
+td2/.mono/*
+td2/*.import
+td2/images/*.import
 *.import
