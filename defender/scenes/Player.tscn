@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://images/ship.png" type="Texture" id=1]
+
+[node name="Player" type="Area2D" index="0"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 2.91579, -15.4429, 9.99887, 4.73313, 14.2916, 5.16241, 14.2916, 13.5333, -12.9675, 13.748, -13.3968, 5.80633, -10.1772, 4.94777, -3.0941, -15.0136 )
+
+[node name="Sprite" type="Sprite" parent="." index="1"]
+
+texture = ExtResource( 1 )
+
+
