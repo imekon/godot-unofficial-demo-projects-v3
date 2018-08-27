@@ -1,6 +1,6 @@
 extends Node
 
-const SPEED_DELTA = 0.1
+const SPEED_DELTA = 0.05
 const SPEED_LIMIT = 10.0
 
 onready var core = $Core
@@ -11,6 +11,7 @@ onready var scoreLabel = $ScoreLabel
 onready var totalLabel = $TotalLabel
 onready var highestScoreLabel = $HighestScoreLabel
 onready var speedLabel = $SpeedLabel
+onready var timer = $Timer
 
 var ballScene
 var brickScene
@@ -24,6 +25,9 @@ func _ready():
 	brickScene = load("res://scenes/Brick.tscn")
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("ui_reset"):
+		get_tree().reload_current_scene()
+		
 	var x = 0
 	if Input.is_action_pressed("ui_left"):
 		x = -1
@@ -69,4 +73,14 @@ func on_time_tick():
 		var z = (2 * randf() - 1) * 1.5
 		ball.translate(Vector3(x, 0, z))
 		add_child(ball)
+		
+	match total:
+		50:
+			timer.wait_time = 0.6
+			
+		100:
+			timer.wait_time = 0.4
+			
+		200:
+			timer.wait_time = 0.2
 
