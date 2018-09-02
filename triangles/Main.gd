@@ -68,15 +68,19 @@ func create_disc(hole, radius, thickness):
 		# the last face is the outer rim
 		vert1 = Vector3(radius * cos_points[i], radius * sin_points[i], thickness)
 		if i < sphere_section - 1:
-			vert2 = Vector3(radius * cos_points[i + 1], radius * sin_points[i + 1], -thickness)
-			vert3 = Vector3(radius * cos_points[i + 1], radius * sin_points[i + 1], thickness)
+			vert2 = Vector3(radius * cos_points[i + 1], radius * sin_points[i + 1], thickness)
+			vert3 = Vector3(radius * cos_points[i + 1], radius * sin_points[i + 1], -thickness)
 		else:
-			vert2 = Vector3(radius * cos_points[0], radius * sin_points[0], -thickness)
-			vert3 = Vector3(radius * cos_points[0], radius * sin_points[0], thickness)
+			vert2 = Vector3(radius * cos_points[0], radius * sin_points[0], thickness)
+			vert3 = Vector3(radius * cos_points[0], radius * sin_points[0], -thickness)
+		vert4 = Vector3(radius * cos_points[i], radius * sin_points[i], -thickness)
 		
 		verts.append(vert1)
 		verts.append(vert2)
 		verts.append(vert3)
+		verts.append(vert1)
+		verts.append(vert3)
+		verts.append(vert4)
 		
 	return create_from_vertices(verts)
 		
