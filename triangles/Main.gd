@@ -10,20 +10,38 @@ func _ready():
 		sin_points.append(sin(deg2rad(i * 360.0 / sphere_section)))
 		cos_points.append(cos(deg2rad(i * 360.0 / sphere_section)))
 		
-	var meshInstance = create_disc(4, 5, 0.1)
+	var meshInstance = create_disc(4, 5, 2, create_material(1,0,0))
+	meshInstance.translate(Vector3(0, 6, 0))
 	add_child(meshInstance)
 	
-func create_from_vertices(verts):
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+func _process(delta):
+	if Input.is_action_just_pressed("ui_reset"):
+		get_tree().reload_current_scene()
+		
+	if Input.is_action_just_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		get_tree().quit()
+		
+func create_material(red, green, blue):
+	var material = SpatialMaterial.new()
+	material.albedo_color = Color(red, green, blue)
+	return material
+	
+func create_from_vertices(verts, material):
 	var surfaceTool = SurfaceTool.new()
 	var meshInstance = MeshInstance.new()
 	surfaceTool.begin(Mesh.PRIMITIVE_TRIANGLES)
 	for vert in verts:
 		surfaceTool.add_vertex(vert)
 	surfaceTool.index()
+	surfaceTool.set_material(material)
+	surfaceTool.generate_normals()
 	meshInstance.mesh = surfaceTool.commit()
 	return meshInstance
 	
-func create_disc(hole, radius, thickness):
+func create_disc(hole, radius, thickness, material):
 	var verts = []
 	
 	for i in range(sphere_section):
@@ -65,7 +83,7 @@ func create_disc(hole, radius, thickness):
 		verts.append(vert3)
 		verts.append(vert4)
 		
-		# the last face is the outer rim
+		# the next face is the outer rim
 		vert1 = Vector3(radius * cos_points[i], radius * sin_points[i], thickness)
 		if i < sphere_section - 1:
 			vert2 = Vector3(radius * cos_points[i + 1], radius * sin_points[i + 1], thickness)
@@ -82,5 +100,22 @@ func create_disc(hole, radius, thickness):
 		verts.append(vert3)
 		verts.append(vert4)
 		
-	return create_from_vertices(verts)
+		# the last face is the inner rim
+		vert1 = Vector3(hole * cos_points[i], hole * sin_points[i], thickness)
+		if i < sphere_section - 1:
+			vert2 = Vector3(hole * cos_points[i + 1], hole * sin_points[i + 1], thickness)
+			vert3 = Vector3(hole * cos_points[i + 1], hole * sin_points[i + 1], -thickness)
+		else:
+			vert2 = Vector3(hole * cos_points[0], hole * sin_points[0], thickness)
+			vert3 = Vector3(hole * cos_points[0], hole * sin_points[0], -thickness)
+		vert4 = Vector3(hole * cos_points[i], hole * sin_points[i], -thickness)
+		
+		verts.append(vert1)
+		verts.append(vert3)
+		verts.append(vert2)
+		verts.append(vert1)
+		verts.append(vert4)
+		verts.append(vert3)
+		
+	return create_from_vertices(verts, material)
 		
