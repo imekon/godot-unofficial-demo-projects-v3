@@ -19,3 +19,13 @@ func _process(delta):
 	vuPanel.left = clamp(left, -100, 0)
 	vuPanel.right = clamp(right, -100, 0)
 	vuPanel.update()
+
+func on_volume_changed(value):
+	var db = convert_gain_to_dbs(value / 100.0)
+	stream.volume_db = db
+
+func convert_gain_to_dbs(gain):
+	if gain < 0.0:
+		return -90.0
+	else:
+		return 20.0 * log(gain) / log(10)
