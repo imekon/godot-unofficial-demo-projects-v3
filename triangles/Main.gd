@@ -5,18 +5,32 @@ const sphere_section = 24
 var cos_points = []
 var sin_points = []
 
+var disc1
+var disc2
+
+onready var fpsLabel = $FPSLabel
+
 func _ready():
 	for i in range(sphere_section):
 		sin_points.append(sin(deg2rad(i * 360.0 / sphere_section)))
 		cos_points.append(cos(deg2rad(i * 360.0 / sphere_section)))
 		
-	var meshInstance = create_disc(4, 5, 2, create_material(1,0,0))
-	meshInstance.translate(Vector3(0, 6, 0))
-	add_child(meshInstance)
+	disc1 = create_disc(4, 5, 2, create_material(1,0,0))
+	disc1.translate(Vector3(0, 6, 0))
+	add_child(disc1)
+	
+	disc2 = create_disc(0.5, 5, 0.5, create_material(1,1,0))
+	disc2.translate(Vector3(-12, 6, 0))
+	add_child(disc2)
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func _process(delta):
+	var fps = Engine.get_frames_per_second()
+	fpsLabel.text = "FPS: " + str(fps)
+	disc1.rotate_y(delta)
+	disc2.rotate_y(delta)
+	
 	if Input.is_action_just_pressed("ui_reset"):
 		get_tree().reload_current_scene()
 		
