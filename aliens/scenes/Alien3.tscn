@@ -11,3 +11,6 @@ texture = ExtResource( 2 )
 [node name="CollisionPolygon2D" parent="." index="1"]
 polygon = PoolVector2Array( 98.7607, -1.91591, 89.9802, -41.6373, 58.6212, -57.9439, 20.5723, -52.9265, -0.751801, -39.1286, -73.0865, -20.7313, -88.9751, -16.9682, -88.9751, 17.7357, -74.759, 21.0807, -3.26053, 37.8055, 18.8998, 51.1853, 56.5306, 57.8752, 89.9802, 41.1504 )
 
+[node name="FiringPosition" parent="." index="2"]
+position = Vector2( 119, 0 )
+

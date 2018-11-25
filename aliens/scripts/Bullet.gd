@@ -14,6 +14,8 @@ func _physics_process(delta):
 	var direction = Vector2(thrust, 0).rotated(deg2rad(rot))
 	var collide = move_and_collide(direction)
 	if collide != null:
+		if collide.collider.has_method("damage"):
+			collide.collider.damage(30)
 		queue_free()
 	
 	var now = OS.get_unix_time()

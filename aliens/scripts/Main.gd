@@ -30,3 +30,5 @@ func generate_alien_ship(alien, x : int, y : int):
 	ship.position = Vector2(x, y)
 	return ship
 
+func on_player_dead():
+	print("player has died!")

@@ -92,3 +92,4 @@ margin_top = 660.0
 margin_right = 735.0
 margin_bottom = 760.0
 
+[connection signal="player_dead" from="Player" to="." method="on_player_dead"]

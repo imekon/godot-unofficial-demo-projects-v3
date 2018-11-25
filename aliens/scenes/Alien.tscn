@@ -11,14 +11,22 @@ collision_mask = 1
 collision/safe_margin = 0.08
 motion/sync_to_physics = false
 script = ExtResource( 1 )
-attack = null
-energy = null
-shields = null
-health = null
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite" type="Sprite" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 build_mode = 0
 polygon = PoolVector2Array(  )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="FiringPosition" type="Position2D" parent="."]
+position = Vector2( 80.6971, 0 )
 

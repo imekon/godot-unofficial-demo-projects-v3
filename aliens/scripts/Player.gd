@@ -18,6 +18,8 @@ var thrust = 0.0
 var fire_cycle = 0
 var last_fired = 0
 
+signal player_dead
+
 func _physics_process(delta):
 	var angle = 0.0
 	
@@ -60,3 +62,19 @@ func process_fire():
 			bullet.rotate(rotation)
 			get_parent().add_child(bullet)
 			last_fired = now
+
+func damage(amount):
+	if shields - amount > 0:
+		shields -= amount
+		return
+		
+	shields = 0
+	var hit = amount - shields
+	
+	if energy - hit > 0:
+		energy -= hit
+		return
+		
+	energy = 0
+	emit_signal("player_dead")
+	
