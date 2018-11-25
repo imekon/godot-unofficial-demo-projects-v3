@@ -3,7 +3,6 @@ screenshots/
 .import/
 .mono/
 
-*.import
 *.dll
 *.exp
 *.lib
@@ -11,11 +10,3 @@ screenshots/
 *.pdb
 *.cache
 *.*~
-cookie/*.import
-cookie/Grid.atlas/*.import
-cookie/Grid.atlas/*.png.import
-cookie/images/*.import
-td2/.mono/*
-td2/*.import
-td2/images/*.import
-*.import
