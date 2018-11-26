@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex"
+path="res://.import/SF Atarian System Sample.jpg-77142f8b7cfd67d9e25d05abce02bb6b.stex"
 
 [deps]
 
-source_file="res://icon.png"
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.stex" ]
+source_file="res://font/SF Atarian System Sample.jpg"
+dest_files=[ "res://.import/SF Atarian System Sample.jpg-77142f8b7cfd67d9e25d05abce02bb6b.stex" ]
 
 [params]
 

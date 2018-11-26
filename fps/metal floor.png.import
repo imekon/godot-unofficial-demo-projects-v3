@@ -8,10 +8,7 @@ path.etc2="res://.import/metal floor.png-3feed37ff855803c488768cf2d55b554.etc2.s
 [deps]
 
 source_file="res://metal floor.png"
-source_md5="370caf4f3e492841c89660eea4348252"
-
 dest_files=[ "res://.import/metal floor.png-3feed37ff855803c488768cf2d55b554.s3tc.stex", "res://.import/metal floor.png-3feed37ff855803c488768cf2d55b554.etc2.stex" ]
-dest_md5="6cb311966b783c0efcff563c5253ddd1"
 
 [params]
 

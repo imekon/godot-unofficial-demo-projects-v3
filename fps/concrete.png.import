@@ -8,10 +8,7 @@ path.etc2="res://.import/concrete.png-3327bed23e228e4e8c21dc2ce53ed2b9.etc2.stex
 [deps]
 
 source_file="res://concrete.png"
-source_md5="4a94e8f11557d1c847298a63d691577e"
-
 dest_files=[ "res://.import/concrete.png-3327bed23e228e4e8c21dc2ce53ed2b9.s3tc.stex", "res://.import/concrete.png-3327bed23e228e4e8c21dc2ce53ed2b9.etc2.stex" ]
-dest_md5="bd1ca0950ef503a8b241b00d98ebb530"
 
 [params]
 
