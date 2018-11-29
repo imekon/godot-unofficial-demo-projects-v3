@@ -1,0 +1,6 @@
+[gd_scene format=2]
+
+[node name="Planet" type="Sprite" groups=[
+"planet",
+]]
+

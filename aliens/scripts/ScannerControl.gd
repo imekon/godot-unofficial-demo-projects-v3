@@ -37,6 +37,7 @@ func _draw():
 	var playerPos = player.position
 	
 	# location of aliens
+	colour = Color(1.0, 1.0, 0.5)
 	var aliens = get_tree().get_nodes_in_group("aliens")
 	for alien in aliens:
 		var pos = alien.global_position
@@ -45,7 +46,16 @@ func _draw():
 			var x = (pos.x - playerPos.x) * trackingRatio + TRACKING_WIDTH / 2
 			var y = (pos.y - playerPos.y) * trackingRatio + TRACKING_HEIGHT / 2
 			rect = Rect2(x - 1, y - 1, 3, 3)
-			colour = Color(1.0, 1.0, 0.5)
 			draw_rect(rect, colour)
 		
-	
+	# location of planets
+	colour = Color(0.5, 0.5, 1.0)
+	var planets = get_tree().get_nodes_in_group("planet")
+	for planet in planets:
+		var pos = planet.global_position
+		var dist = playerPos.distance_to(pos)
+		if dist < trackingRange2:
+			var x = (pos.x - playerPos.x) * trackingRatio + TRACKING_WIDTH / 2
+			var y = (pos.y - playerPos.y) * trackingRatio + TRACKING_HEIGHT / 2
+			rect = Rect2(x - 1, y - 1, 3, 3)
+			draw_rect(rect, colour)
