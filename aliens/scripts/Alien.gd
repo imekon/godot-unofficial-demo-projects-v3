@@ -8,6 +8,7 @@ onready var Bullet = load("res://scenes/Bullet.tscn")
 onready var TargetingHelper = load("res://scripts/TargetingHelper.gd")
 
 onready var firing_position = $FiringPosition
+onready var label_node = $Node2D
 
 var status : int
 var thrust : float
@@ -22,6 +23,9 @@ func _ready():
 	var angle = randf() * 360
 	rotate(deg2rad(angle))
 	status = DRIFTING
+	
+func _process(delta):
+	label_node.global_rotation = 0.0
 
 func _physics_process(delta):
 	match status:

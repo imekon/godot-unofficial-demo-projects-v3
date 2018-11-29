@@ -11,6 +11,8 @@ onready var left_position = $LeftPosition
 onready var firing_position = $FiringPosition
 onready var right_position = $RightPosition
 
+onready var label_node = $Node2D
+
 onready var Bullet = load("res://scenes/Bullet.tscn")
 
 var score = 0
@@ -19,6 +21,9 @@ var fire_cycle = 0
 var last_fired = 0
 
 signal player_dead
+
+func _process(delta):
+	label_node.global_rotation = 0
 
 func _physics_process(delta):
 	var angle = 0.0
