@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://images/starfield.png" type="Texture" id=2]
@@ -7,6 +7,15 @@
 [ext_resource path="res://scenes/Scanner.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
+
+size = 24
+outline_size = 0
+outline_color = Color( 1, 1, 1, 1 )
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
 
 size = 24
 outline_size = 0
@@ -91,5 +100,30 @@ margin_left = 600.0
 margin_top = 660.0
 margin_right = 735.0
 margin_bottom = 760.0
+
+[node name="OrbitButton" type="Button" parent="CanvasLayer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 470.0
+margin_top = 710.0
+margin_right = 552.0
+margin_bottom = 741.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 2 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Orbit"
+flat = false
+align = 1
 
 [connection signal="player_dead" from="Player" to="." method="on_player_dead"]
