@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Globals="*res://scripts/globals.gd"
+Cargo="*res://scripts/cargo.gd"
 
 [display]
 

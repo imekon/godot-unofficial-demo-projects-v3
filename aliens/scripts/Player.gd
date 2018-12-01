@@ -19,8 +19,12 @@ var score = 0
 var thrust = 0.0
 var fire_cycle = 0
 var last_fired = 0
+var cargo = null
 
 signal player_dead
+
+func _ready():
+	cargo = Cargo.create_cargo()
 
 func _process(delta):
 	label_node.global_rotation = 0
