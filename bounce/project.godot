@@ -15,19 +15,10 @@ _global_script_class_icons={
 
 [application]
 
-config/name="breakout"
-run/main_scene="res://welcome.tscn"
-icon="res://icon.png"
-main_scene="res://welcome.tscn"
-name="breakout"
+config/name="Bounce"
+run/main_scene="res://main.tscn"
+config/icon="res://icon.png"
 
-[autoload]
+[rendering]
 
-Globals="*res://global.gd"
-
-[display]
-
-stretch/aspect="keep_width"
-stretch/mode="2d"
-window/height=600
-window/width=1024
+environment/default_environment="res://default_env.tres"

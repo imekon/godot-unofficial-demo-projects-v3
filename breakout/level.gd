@@ -10,12 +10,10 @@ func getLevel():
 	return level
 	
 func _process(delta):
-	var score = get_node("/root/globals").getScore()
-	scoreLabel.text = "Score: " + str(score)
+	scoreLabel.text = "Score: " + str(Globals.score)
 	
-	var lives = get_node("/root/globals").getLives()
-	livesLabel.text = "Lives: " + str(lives)
+	livesLabel.text = "Lives: " + str(Globals.lives)
 
 	var brickCount = bricks.get_children().size()
 	if brickCount == 0:
-		get_node("/root/globals").changeLevel(level + 1)
+		Globals.changeLevel(level + 1)

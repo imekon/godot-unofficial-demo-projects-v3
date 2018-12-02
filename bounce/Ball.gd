@@ -1,10 +1,11 @@
 extends KinematicBody2D
 
-const MOVEMENT = 300.0
+const MOVEMENT = 300
 
 func _ready():
-	rotation = randf()
-
+	randomize()
+	rotation = get_range(deg2rad(90))
+	
 func _physics_process(delta):
 	var thrust = MOVEMENT * delta
 	var direction = Vector2(thrust, 0).rotated(rotation)
@@ -12,7 +13,7 @@ func _physics_process(delta):
 	
 	if collide != null:
 		direction = direction.bounce(collide.normal)
-		rotation = atan2(direction.y, direction.x)
-		
-		if collide.collider.is_in_group("brick"):
-			collide.collider.destroy()
+		rotation = atan2(direction.y, direction.x) + get_range(1.0) - 0.5
+	
+func get_range(value):
+	return randf() * value

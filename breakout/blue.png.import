@@ -7,16 +7,14 @@ path="res://.import/blue.png-4d748ed6429caf8afc2e9d3803eadf6e.stex"
 [deps]
 
 source_file="res://blue.png"
-source_md5="4085fa32d92d67950cbec2f6018e816c"
-
 dest_files=[ "res://.import/blue.png-4d748ed6429caf8afc2e9d3803eadf6e.stex" ]
-dest_md5="a25ed4e6e5bf4741a0d3cd1b40162da9"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +24,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

@@ -12,13 +12,10 @@ func _ready():
 	tween.interpolate_property(sprite, "modulate:a", 1.0, 0.0, 0.3, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	tween.interpolate_property(sprite, "scale", sprite.get_scale(), Vector2(1.7, 1.7), 0.3, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	
-func getScore():
-	# Get the overridden score
-	return score
-
 func destroy():
 	# clear_shapes()
 	tween.start()
 
 func _onTweenCompleted( object, key ):
+	Globals.score += score
 	queue_free()

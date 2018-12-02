@@ -7,16 +7,14 @@ path="res://.import/green.png-5db815cc8219d4fb24db6968e2796f87.stex"
 [deps]
 
 source_file="res://green.png"
-source_md5="f12f345c5eedee6d59c3c2694858a6d7"
-
 dest_files=[ "res://.import/green.png-5db815cc8219d4fb24db6968e2796f87.stex" ]
-dest_md5="8331abdd51b07ce9cb164a9487102495"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +24,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

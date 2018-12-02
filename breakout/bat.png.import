@@ -7,16 +7,14 @@ path="res://.import/bat.png-8c5f11e0110a5921c6efd8f18e634996.stex"
 [deps]
 
 source_file="res://bat.png"
-source_md5="b8c3e5ca4cdc4b3c0e905d8088542a5c"
-
 dest_files=[ "res://.import/bat.png-8c5f11e0110a5921c6efd8f18e634996.stex" ]
-dest_md5="207267f4651090fb54ffe6bf2ef4b0ec"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +24,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true
