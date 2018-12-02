@@ -32,12 +32,13 @@ func _process(delta):
 	label_node.global_rotation = 0.0
 
 func _physics_process(delta):
-	process_proximity()
+	# process_proximity()
 	match status:
 		STOP:
 			process_stop(delta)
 		DRIFTING:
-			process_drifting(delta)
+			if !process_proximity():
+				process_drifting(delta)
 		TARGETING:
 			process_targeting(delta)
 		TURNING:
@@ -49,8 +50,8 @@ func _physics_process(delta):
 		SHOOTING:
 			process_shooting(delta)
 			
-func _draw():
-	draw_line(Vector2(0, 0), Vector2(500, 0), Color(1.0, 0.0, 0.0))
+#func _draw():
+#	draw_line(Vector2(0, 0), Vector2(500, 0), Color(1.0, 0.0, 0.0))
 			
 func damage(amount):
 	shields -= amount
@@ -66,6 +67,9 @@ func process_proximity():
 		last_stop = OS.get_ticks_msec()
 		limit_stop = Globals.random_range2(1000, 3000)
 		status = STOP
+		return true
+		
+	return false
 		
 func process_stop(delta):
 	var now = OS.get_ticks_msec()
