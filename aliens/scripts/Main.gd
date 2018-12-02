@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var score_label = $CanvasLayer/ScoreLabel
+onready var orbit_button = $CanvasLayer/OrbitButton
 onready var player = $Player
 
 onready var Alien1 = load("res://scenes/Alien1.tscn")
@@ -48,5 +49,7 @@ func generate_alien_ship(alien, x : int, y : int):
 	return ship
 
 func on_player_dead():
-	print("player has died!")
+	print("player has died")
+	
+# orbit_button.disabled = false
 
