@@ -40,6 +40,9 @@ __meta__ = {
 [node name="FiringPosition" type="Position2D" parent="."]
 position = Vector2( 80.6971, 0 )
 
+[node name="ProximityPosition" type="Position2D" parent="."]
+position = Vector2( 500, 0 )
+
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Label" type="Label" parent="Node2D"]

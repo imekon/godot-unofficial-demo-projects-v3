@@ -49,3 +49,4 @@ func generate_alien_ship(alien, x : int, y : int):
 
 func on_player_dead():
 	print("player has died!")
+
