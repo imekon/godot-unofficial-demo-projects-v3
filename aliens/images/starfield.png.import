@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/starfield.png-abba36289f1dca1142dbb46be6556fde.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 

@@ -1,5 +1,7 @@
 extends Node
 
+class_name TargetingHelper
+
 var target
 var target_position
 var target_angle

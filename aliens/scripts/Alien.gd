@@ -6,7 +6,6 @@ const MOVEMENT = 200.0
 enum STATUS { STOP, DRIFTING, TARGETING, TURNING, MOVING, TURNING_TO_SHOOT, SHOOTING }
 
 onready var Bullet = load("res://scenes/Bullet.tscn")
-onready var TargetingHelper = load("res://scripts/TargetingHelper.gd")
 
 onready var firing_position = $FiringPosition
 onready var proximity_position = $ProximityPosition
@@ -26,7 +25,7 @@ func _ready():
 	shields = 100
 	var angle = randf() * 360
 	rotate(deg2rad(angle))
-	status = DRIFTING
+	status = STATUS.DRIFTING
 	
 func _process(delta):
 	label_node.global_rotation = 0.0
@@ -34,20 +33,20 @@ func _process(delta):
 func _physics_process(delta):
 	# process_proximity()
 	match status:
-		STOP:
+		STATUS.STOP:
 			process_stop(delta)
-		DRIFTING:
+		STATUS.DRIFTING:
 			if !process_proximity():
 				process_drifting(delta)
-		TARGETING:
+		STATUS.TARGETING:
 			process_targeting(delta)
-		TURNING:
+		STATUS.TURNING:
 			process_turning(delta)
-		MOVING:
+		STATUS.MOVING:
 			process_moving(delta)
-		TURNING_TO_SHOOT:
+		STATUS.TURNING_TO_SHOOT:
 			process_turning_to_shoot(delta)
-		SHOOTING:
+		STATUS.SHOOTING:
 			process_shooting(delta)
 			
 #func _draw():
@@ -58,7 +57,7 @@ func damage(amount):
 	if shields < 0:
 		queue_free()
 		
-	status = TARGETING
+	status = STATUS.TARGETING
 
 func process_proximity():
 	var space = get_world_2d().direct_space_state
@@ -66,7 +65,7 @@ func process_proximity():
 	if result:
 		last_stop = OS.get_ticks_msec()
 		limit_stop = Globals.random_range2(1000, 3000)
-		status = STOP
+		status = STATUS.STOP
 		return true
 		
 	return false
@@ -74,7 +73,7 @@ func process_proximity():
 func process_stop(delta):
 	var now = OS.get_ticks_msec()
 	if now - last_stop > limit_stop:
-		status = DRIFTING
+		status = STATUS.DRIFTING
 	
 func process_drifting(delta):
 	checking_edge_universe()
@@ -107,15 +106,15 @@ func process_targeting(delta):
 			closest_ship = ship
 			
 	if closest_distance > 10000:
-		status = DRIFTING
+		status = STATUS.DRIFTING
 		return
 	
 	if closest_ship != null:
 		targeting_helper.set_target(closest_ship)
 		targeting_helper.plot_course_to_target(global_position)
-		status = TURNING
+		status = STATUS.TURNING
 	else:
-		status = DRIFTING
+		status = STATUS.DRIFTING
 
 func process_turning(delta):
 	if !targeting_helper.plot_course_to_target(global_position):
@@ -131,11 +130,11 @@ func process_turning(delta):
 	if abs(rotation_degrees - targeting_helper.target_angle) > 1:
 		rotate(deg2rad(angle_delta))
 	else:
-		status = MOVING
+		status = STATUS.MOVING
 
 func process_moving(delta):
 	if !targeting_helper.target.get_ref():
-		status = DRIFTING
+		status = STATUS.DRIFTING
 		return
 		
 	thrust = MOVEMENT * delta
@@ -148,7 +147,7 @@ func process_moving(delta):
 	var target_position = targeting_helper.target.get_ref().global_position
 	var distance = global_position.distance_to(target_position)
 	if distance < 500:
-		status = TURNING_TO_SHOOT
+		status = STATUS.TURNING_TO_SHOOT
 		firing_count = 0
 		
 func process_turning_to_shoot(delta):
@@ -166,7 +165,7 @@ func process_turning_to_shoot(delta):
 		rotate(deg2rad(angle_delta))
 	else:
 		last_fired = OS.get_ticks_msec()
-		status = SHOOTING
+		status = STATUS.SHOOTING
 
 func process_shooting(delta):
 	var now = OS.get_ticks_msec()
@@ -179,5 +178,5 @@ func process_shooting(delta):
 		firing_count += 1
 
 	if firing_count > 5:
-		status = TARGETING
+		status = STATUS.TARGETING
 		targeting_helper.clear()
