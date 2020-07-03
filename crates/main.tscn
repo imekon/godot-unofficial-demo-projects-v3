@@ -6,258 +6,175 @@
 [ext_resource path="res://crate.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
 extents = Vector2( 59, 27 )
 
 [sub_resource type="RectangleShape2D" id=2]
-
-custom_solver_bias = 0.0
 extents = Vector2( 43.5802, 16 )
 
-[node name="main" type="Node2D" index="0"]
-
+[node name="main" type="Node2D"]
 script = ExtResource( 1 )
 ball_scene = ExtResource( 2 )
 ball_spawn_path = NodePath("ballSpawn")
 strength = 1.5
 
-[node name="ground" type="Node2D" parent="." index="0"]
+[node name="ground" type="Node2D" parent="."]
 
-[node name="ground3 2" parent="ground" index="0" instance=ExtResource( 3 )]
-
+[node name="ground3 2" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 16, 592 )
 
-[node name="ground4" parent="ground" index="1" instance=ExtResource( 3 )]
-
+[node name="ground4" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 128, 592 )
 
-[node name="ground5" parent="ground" index="2" instance=ExtResource( 3 )]
-
+[node name="ground5" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 256, 592 )
 
-[node name="ground6" parent="ground" index="3" instance=ExtResource( 3 )]
-
+[node name="ground6" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 384, 592 )
 
-[node name="ground7" parent="ground" index="4" instance=ExtResource( 3 )]
-
+[node name="ground7" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 512, 592 )
 
-[node name="ground8" parent="ground" index="5" instance=ExtResource( 3 )]
-
+[node name="ground8" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 640, 592 )
 
-[node name="ground9" parent="ground" index="6" instance=ExtResource( 3 )]
-
+[node name="ground9" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 768, 592 )
 
-[node name="ground10" parent="ground" index="7" instance=ExtResource( 3 )]
-
+[node name="ground10" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 896, 592 )
 
-[node name="ground1" parent="ground" index="8" instance=ExtResource( 3 )]
-
+[node name="ground1" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 48, 592 )
 
-[node name="ground4 4" parent="ground" index="9" instance=ExtResource( 3 )]
-
+[node name="ground4 4" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 160, 592 )
 
-[node name="ground45" parent="ground" index="10" instance=ExtResource( 3 )]
-
+[node name="ground45" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 288, 592 )
 
-[node name="ground46 2" parent="ground" index="11" instance=ExtResource( 3 )]
-
+[node name="ground46 2" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 416, 592 )
 
-[node name="ground463" parent="ground" index="12" instance=ExtResource( 3 )]
-
+[node name="ground463" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 544, 592 )
 
-[node name="ground465 2" parent="ground" index="13" instance=ExtResource( 3 )]
-
+[node name="ground465 2" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 672, 592 )
 
-[node name="ground4653" parent="ground" index="14" instance=ExtResource( 3 )]
-
+[node name="ground4653" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 800, 592 )
 
-[node name="ground4654" parent="ground" index="15" instance=ExtResource( 3 )]
-
+[node name="ground4654" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 928, 592 )
 
-[node name="ground2" parent="ground" index="16" instance=ExtResource( 3 )]
-
+[node name="ground2" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 80, 592 )
 
-[node name="ground4 3" parent="ground" index="17" instance=ExtResource( 3 )]
-
+[node name="ground4 3" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 192, 592 )
 
-[node name="ground44" parent="ground" index="18" instance=ExtResource( 3 )]
-
+[node name="ground44" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 320, 592 )
 
-[node name="ground46 3" parent="ground" index="19" instance=ExtResource( 3 )]
-
+[node name="ground46 3" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 448, 592 )
 
-[node name="ground464" parent="ground" index="20" instance=ExtResource( 3 )]
-
+[node name="ground464" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 576, 592 )
 
-[node name="ground465" parent="ground" index="21" instance=ExtResource( 3 )]
-
+[node name="ground465" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 704, 592 )
 
-[node name="ground466" parent="ground" index="22" instance=ExtResource( 3 )]
-
+[node name="ground466" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 832, 592 )
 
-[node name="ground467" parent="ground" index="23" instance=ExtResource( 3 )]
-
+[node name="ground467" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 960, 592 )
 
-[node name="ground3" parent="ground" index="24" instance=ExtResource( 3 )]
-
+[node name="ground3" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 112, 592 )
 
-[node name="ground4 2" parent="ground" index="25" instance=ExtResource( 3 )]
-
+[node name="ground4 2" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 224, 592 )
 
-[node name="ground43" parent="ground" index="26" instance=ExtResource( 3 )]
-
+[node name="ground43" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 352, 592 )
 
-[node name="ground46" parent="ground" index="27" instance=ExtResource( 3 )]
-
+[node name="ground46" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 480, 592 )
 
-[node name="ground47" parent="ground" index="28" instance=ExtResource( 3 )]
-
+[node name="ground47" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 608, 592 )
 
-[node name="ground48" parent="ground" index="29" instance=ExtResource( 3 )]
-
+[node name="ground48" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 736, 592 )
 
-[node name="ground49" parent="ground" index="30" instance=ExtResource( 3 )]
-
+[node name="ground49" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 864, 592 )
 
-[node name="ground50" parent="ground" index="31" instance=ExtResource( 3 )]
-
+[node name="ground50" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 992, 592 )
 
-[node name="ground51" parent="ground" index="32" instance=ExtResource( 3 )]
-
+[node name="ground51" parent="ground" instance=ExtResource( 3 )]
 position = Vector2( 1024, 592 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="ground" index="33"]
+[node name="StaticBody2D" type="StaticBody2D" parent="ground"]
 
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ground/StaticBody2D" index="0"]
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ground/StaticBody2D"]
 position = Vector2( 528, 368 )
 scale = Vector2( 1.62712, 0.592593 )
 shape = SubResource( 1 )
 
-[node name="CollisionShape2D 2" type="CollisionShape2D" parent="ground/StaticBody2D" index="1"]
-
+[node name="CollisionShape2D 2" type="CollisionShape2D" parent="ground/StaticBody2D"]
 position = Vector2( 520, 592 )
 scale = Vector2( 11.932, 1 )
 shape = SubResource( 2 )
 
-[node name="shelf" type="Node2D" parent="." index="1"]
+[node name="shelf" type="Node2D" parent="."]
 
-editor/display_folded = true
-
-[node name="ground468" parent="shelf" index="0" instance=ExtResource( 3 )]
-
+[node name="ground468" parent="shelf" instance=ExtResource( 3 )]
 position = Vector2( 448, 368 )
 
-[node name="ground469" parent="shelf" index="1" instance=ExtResource( 3 )]
-
+[node name="ground469" parent="shelf" instance=ExtResource( 3 )]
 position = Vector2( 480, 368 )
 
-[node name="ground470" parent="shelf" index="2" instance=ExtResource( 3 )]
-
+[node name="ground470" parent="shelf" instance=ExtResource( 3 )]
 position = Vector2( 512, 368 )
 
-[node name="ground471" parent="shelf" index="3" instance=ExtResource( 3 )]
-
+[node name="ground471" parent="shelf" instance=ExtResource( 3 )]
 position = Vector2( 544, 368 )
 
-[node name="ground472" parent="shelf" index="4" instance=ExtResource( 3 )]
-
+[node name="ground472" parent="shelf" instance=ExtResource( 3 )]
 position = Vector2( 576, 368 )
 
-[node name="ground473" parent="shelf" index="5" instance=ExtResource( 3 )]
-
+[node name="ground473" parent="shelf" instance=ExtResource( 3 )]
 position = Vector2( 608, 368 )
 
-[node name="crates" type="Node2D" parent="." index="2"]
+[node name="crates" type="Node2D" parent="."]
 
-[node name="crate" parent="crates" index="0" instance=ExtResource( 4 )]
-
+[node name="crate" parent="crates" instance=ExtResource( 4 )]
 position = Vector2( 464, 328 )
-linear_damp = -1.0
-angular_damp = -1.0
 
-[node name="crate 2" parent="crates" index="1" instance=ExtResource( 4 )]
-
+[node name="crate 2" parent="crates" instance=ExtResource( 4 )]
 position = Vector2( 464, 280 )
-linear_damp = -1.0
-angular_damp = -1.0
 
-[node name="crate3" parent="crates" index="2" instance=ExtResource( 4 )]
-
+[node name="crate3" parent="crates" instance=ExtResource( 4 )]
 position = Vector2( 464, 232 )
-linear_damp = -1.0
-angular_damp = -1.0
 
-[node name="crate4" parent="crates" index="3" instance=ExtResource( 4 )]
-
+[node name="crate4" parent="crates" instance=ExtResource( 4 )]
 position = Vector2( 464, 184 )
-linear_damp = -1.0
-angular_damp = -1.0
 
-[node name="crate5" parent="crates" index="4" instance=ExtResource( 4 )]
-
+[node name="crate5" parent="crates" instance=ExtResource( 4 )]
 position = Vector2( 592, 328 )
-linear_damp = -1.0
-angular_damp = -1.0
 
-[node name="crate6" parent="crates" index="5" instance=ExtResource( 4 )]
-
+[node name="crate6" parent="crates" instance=ExtResource( 4 )]
 position = Vector2( 592, 280 )
-linear_damp = -1.0
-angular_damp = -1.0
 
-[node name="crate7" parent="crates" index="6" instance=ExtResource( 4 )]
-
+[node name="crate7" parent="crates" instance=ExtResource( 4 )]
 position = Vector2( 592, 232 )
-linear_damp = -1.0
-angular_damp = -1.0
 
-[node name="crate8" parent="crates" index="7" instance=ExtResource( 4 )]
-
+[node name="crate8" parent="crates" instance=ExtResource( 4 )]
 position = Vector2( 592, 184 )
-linear_damp = -1.0
-angular_damp = -1.0
 
-[node name="ballSpawn" type="Position2D" parent="." index="3"]
-
+[node name="ballSpawn" type="Position2D" parent="."]
 position = Vector2( 112, 272 )
-
-
