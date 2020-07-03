@@ -4,11 +4,9 @@
 [ext_resource path="res://fonts/MODES___.TTF" type="DynamicFontData" id=2]
 
 [sub_resource type="DynamicFont" id=1]
-
 font_data = ExtResource( 2 )
 
 [sub_resource type="ButtonGroup" id=2]
-
 
 [node name="main" type="PanelContainer"]
 margin_right = 1024.0
@@ -30,4 +28,3 @@ custom_fonts/font = SubResource( 1 )
 group = SubResource( 2 )
 text = "File"
 items = [ "New", null, 0, false, false, 0, 0, null, "", false, "Open...", null, 0, false, false, 1, 0, null, "", false, "Save...", null, 0, false, false, 2, 0, null, "", false, "Quit", null, 0, false, false, 3, 0, null, "", false ]
-
