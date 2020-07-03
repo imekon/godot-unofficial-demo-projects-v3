@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/Danish-Highlighted@2x.png-ea4f106dcd090ef7ae2752580dbe19d8.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Sprites.atlas/Danish-Highlighted@2x.png"
-source_md5="022e1a84a7202f01619c43002493a7f7"
-
 dest_files=[ "res://.import/Danish-Highlighted@2x.png-ea4f106dcd090ef7ae2752580dbe19d8.stex" ]
-dest_md5="bd982491e9d83ab430d57e15b065cfc8"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

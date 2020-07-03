@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/Croissant-Highlighted@2x.png-e7e349ca5e280f53f813b480ab684eaf.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Sprites.atlas/Croissant-Highlighted@2x.png"
-source_md5="b90d4b7031643d62f1e481a419ba6d3d"
-
 dest_files=[ "res://.import/Croissant-Highlighted@2x.png-e7e349ca5e280f53f813b480ab684eaf.stex" ]
-dest_md5="b14529ecf3dc32d14f007ba614983b71"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

@@ -7,10 +7,7 @@ path="res://.import/Mining by Moonlight.ogg-ffabfa80f3636cc12f90501fcd8782e3.ogg
 [deps]
 
 source_file="res://Sounds/Mining by Moonlight.ogg"
-source_md5="7cb36fc1e97b103ce9a427c1030af82c"
-
 dest_files=[ "res://.import/Mining by Moonlight.ogg-ffabfa80f3636cc12f90501fcd8782e3.oggstr" ]
-dest_md5="bdab19444c06be56af7b85054ac6f33e"
 
 [params]
 

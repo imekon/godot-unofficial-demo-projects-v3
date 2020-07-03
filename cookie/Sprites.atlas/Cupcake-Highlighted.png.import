@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/Cupcake-Highlighted.png-b50f15bf22874bb2ce6795c235d3f4c3.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Sprites.atlas/Cupcake-Highlighted.png"
-source_md5="dc4260ad823dba90e06a4a5543f10db1"
-
 dest_files=[ "res://.import/Cupcake-Highlighted.png-b50f15bf22874bb2ce6795c235d3f4c3.stex" ]
-dest_md5="8f5358979520338816a96c910bc1bb31"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

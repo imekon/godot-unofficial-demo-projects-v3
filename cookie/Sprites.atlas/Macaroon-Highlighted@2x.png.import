@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/Macaroon-Highlighted@2x.png-98ea6cf0641eb0c2eb41ffef2d31c375.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Sprites.atlas/Macaroon-Highlighted@2x.png"
-source_md5="ba00904dbb9d77880fb36a4eff8cbfb7"
-
 dest_files=[ "res://.import/Macaroon-Highlighted@2x.png-98ea6cf0641eb0c2eb41ffef2d31c375.stex" ]
-dest_md5="3df9df3c12e7de80ca8c6fd2998e6340"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

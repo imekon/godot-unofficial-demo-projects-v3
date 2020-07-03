@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/SugarCookie-Highlighted.png-64cf0587566e306a238b1022c5689ba6.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Sprites.atlas/SugarCookie-Highlighted.png"
-source_md5="104cf2b86bf0086bfb55ba938dcd2f6e"
-
 dest_files=[ "res://.import/SugarCookie-Highlighted.png-64cf0587566e306a238b1022c5689ba6.stex" ]
-dest_md5="178a6ca6945aed3ffa15a086391100ca"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

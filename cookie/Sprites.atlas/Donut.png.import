@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/Donut.png-bb73c09981dabc69e9b8117f8783b5d0.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Sprites.atlas/Donut.png"
-source_md5="a771c4440fdb734dc3ba8576fea809c1"
-
 dest_files=[ "res://.import/Donut.png-bb73c09981dabc69e9b8117f8783b5d0.stex" ]
-dest_md5="8658d144c9bfc54205a19a30cca19a2d"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

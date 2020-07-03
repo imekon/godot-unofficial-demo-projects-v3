@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/Tile@2x.png-3e281327c5dda181a5cfc55e468c0f03.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Sprites.atlas/Tile@2x.png"
-source_md5="0c54c913fc6af70be714d0ee2e5b879b"
-
 dest_files=[ "res://.import/Tile@2x.png-3e281327c5dda181a5cfc55e468c0f03.stex" ]
-dest_md5="85916997c58fcc26d9ec2407f716e056"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

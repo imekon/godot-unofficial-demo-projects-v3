@@ -3,20 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/Tile_14@2x.png-a6aba0706afb5ccca5f9abb7d2cbc184.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Grid.atlas/Tile_14@2x.png"
-source_md5="3c0392ee3e620c1de0acc005d303cfd3"
-
 dest_files=[ "res://.import/Tile_14@2x.png-a6aba0706afb5ccca5f9abb7d2cbc184.stex" ]
-dest_md5="b4a49eab64da792b2b14a10d6da3e9a6"
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -26,6 +27,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true
