@@ -3,16 +3,13 @@
 [ext_resource path="res://fonts/MODES___.TTF" type="DynamicFontData" id=1]
 
 [sub_resource type="DynamicFont" id=1]
-
 size = 48
 font_data = ExtResource( 1 )
 
 [sub_resource type="SpatialMaterial" id=2]
-
 albedo_color = Color( 0.615686, 0.0313726, 0.0313726, 1 )
 
 [sub_resource type="SphereMesh" id=3]
-
 material = SubResource( 2 )
 
 [node name="Main" type="Spatial"]
@@ -41,4 +38,3 @@ material/0 = null
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.88227 )
 current = true
-
